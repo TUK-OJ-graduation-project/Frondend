@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import styled from "styled-components";
-import CommentList from "../list/CommentList";
+import CommentList from "../list/Problemlist";
 import TextInput from "../ui/TextInput";
 import Button from "../ui/Button";
-import data from "../../data.json";
+import data from "../../problemdetaildata.json";
 
 const Wrapper = styled.div`
     padding: 16px;
@@ -48,7 +48,7 @@ const CommentLabel = styled.p`
     font-weight: 500;
 `;
 
-function PostViewPage(props){
+function ProblemViewPage(props){
     const navigate = useNavigate();
     const { postId } = useParams();
 
@@ -92,14 +92,14 @@ function PostViewPage(props){
             color: "black",
             fontSize: 16,
         },
-        Problem:{
+        QnA:{
             float: "left",
             fontSize: 16
         }
     };
     return (
         <Wrapper>
-            <Container><div id="QnA" className="pagename"><h1 style={{ color: "grey", float: "left" }}>QnA</h1></div></Container>    
+            <Container><div id="Problem" className="pagename"><h1 style={{ color: "navy", float: "left" }}>Problem</h1></div></Container>    
             <Container>
             
                 <Button
@@ -145,4 +145,4 @@ function PostViewPage(props){
     );
 }
 
-export default PostViewPage;
+export default ProblemViewPage;
