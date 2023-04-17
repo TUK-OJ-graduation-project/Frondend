@@ -1,0 +1,83 @@
+/* 공지사항 목록과 문제 목록의 창을 겹치도록 설정합니다. */
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.notice-container {
+    position: absolute;
+    top: 150px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+  .problem-container{
+    position: absolute;
+    top: 400px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+  }
+
+  /* 공지사항 목록의 스타일을 지정합니다. */
+  .notice-container {
+    background-color: #F7F7F7;
+    width: 90%;
+    max-width: 800px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+  }
+
+  .notice-container h2 {
+    margin-top: 0;
+  }
+
+  .notice-container ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .notice-container li {
+    margin-bottom: 10px;
+  }
+
+  .notice-container a {
+    color: #005AB5;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  /* 문제 목록의 스타일을 지정합니다. */
+  .problem-container {
+    background-color: #FFFFFF;
+    width: 90%;
+    max-width: 800px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+  }
+
+  .problem-container h2 {
+    margin-top: 0;
+  }
+
+  .problem-container ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .problem-container li {
+    margin-bottom: 10px;
+  }
+
+  .problem-container a {
+    color: #005AB5;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .footer {
+    margin-top: auto;
+  }
