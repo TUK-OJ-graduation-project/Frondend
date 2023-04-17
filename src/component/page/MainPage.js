@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PostList from "../list/PostList";
@@ -6,6 +7,8 @@ import PostList from "../list/PostList";
 import Problemlist from "../list/Problemlist";
 import Button from "../ui/Button";
 import data from '../../data.json';
+import Pagination from 'react-js-pagination';
+import './Paging.css';
 
 const Wrapper = styled.div`
     padding: 16px;
@@ -27,9 +30,19 @@ const Container = styled.div`
     }
 `;
 
+// const Paging = () => {
+//     const [page, setPage] = useState(1);
+
+//     const handlePageChange = (page) => {
+//         setPage(page);
+//     }
+// }
+
 function MainPage(props){
     const {} = props;
-
+    const [limit, setLimit] = useState(10);
+    const [page, setPage] = useState(1);
+    const offset = (page - 1) * limit;
     const navigate = useNavigate();
 
     return (
@@ -65,8 +78,27 @@ function MainPage(props){
                     }}
                 />
             </Container>
+            
+            <label>페이지 당 표시할 게시물 수:&nbsp;
+                <select
+                type="number"
+                value={limit}
+                onChange={({ target: { value } }) => setLimit(Number(value))}
+                >
+                <option value="5">5</option>
+                <option value="10">10</option>
+                {/* <option value="15">15</option>
+                <option value="50">50</option>
+                <option value="100">100</option> */}
+                </select>
+            </label>
+
+
         </Wrapper>
+        
     );
 }
+
+
 
 export default MainPage;
