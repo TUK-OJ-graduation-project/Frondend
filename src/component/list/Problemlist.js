@@ -15,7 +15,7 @@ import Pagination from "../../Pagination";
 const ProblemList = props => {
   const [ dataList, setDataList ] = useState([]);
   useEffect(() => {
-    setDataList(problemdata);
+    // setDataList(problemdata);
     axios.get('http://127.0.0.1:8000/api/v1/problems/list/')
       .then(function (response){
         setDataList(response.data);
@@ -23,7 +23,7 @@ const ProblemList = props => {
       .catch(function (error){
         console.log(error);
       })
-      setDataList(ProblemList);
+      setDataList(problemdata);
       // .then((res) => res.json())
       // .then((data) => problemdata(data));
   }, [ ])
@@ -97,13 +97,14 @@ const ProblemList = props => {
             }) 
             } */}
             <main>
+          
         {problemdata.slice(offset, offset + limit).map(({ id, title, level }) => (
           <article key={id}>
-            <h3>
-              {id}. {title}
-            </h3>
-            <p>{level}</p>
+            <CommonTableColumn>{id} </CommonTableColumn>
+            <CommonTableColumn>{title} </CommonTableColumn>
+            <CommonTableColumn>{level} </CommonTableColumn>
           </article>
+            
         ))}
       </main>
         </CommonTable>
