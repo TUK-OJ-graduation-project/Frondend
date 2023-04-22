@@ -10,6 +10,7 @@ import './Post.css';
 import problemdata from '../../problemdata';
 import {View} from 'react-native';
 import Pagination from "../../Pagination";
+import PostList from './PostList';
 // import Pagination from 'react-js-pagination';
 
 const ProblemList = props => {
@@ -84,7 +85,8 @@ const ProblemList = props => {
         // <Dropdown  selected={selected} setSelected={setSelected}/>,
         // <Dropdown1 selected={selected} setSelected={setSelected}/>
         ]}>
-            {/* {
+          {/* //여기서부터 되나 안되나 확인 */}
+            {
             dataList && dataList.map((item, index) => {
                 return (
                 <CommonTableRow key={index}>
@@ -95,9 +97,10 @@ const ProblemList = props => {
                 </CommonTableRow>
                 )
             }) 
-            } */}
-            <main>
-          
+            }
+            
+          {/* ------------------------- */}
+          {/* <main>
         {problemdata.slice(offset, offset + limit).map(({ id, title, level }) => (
           <article key={id}>
             <CommonTableColumn>{id} </CommonTableColumn>
@@ -106,7 +109,7 @@ const ProblemList = props => {
           </article>
             
         ))}
-      </main>
+      </main> */}
         </CommonTable>
     </div>
     {/* <label>
@@ -123,7 +126,11 @@ const ProblemList = props => {
             <option value="100">100</option>
           </select>
         </label> */}
+
+
+        {/* ----------------------------- */}
         <main>
+        {/* {problemdata.slice(offset, offset + limit).map(({ id, title, level }) => ( */}
         {problemdata.slice(offset, offset + limit).map(({ id, title, level }) => (
           <article key={id}>
             <h3>
@@ -137,6 +144,7 @@ const ProblemList = props => {
     <footer>
         <Pagination
           total={problemdata.length}
+          // total={setDataList}
           limit={limit}
           page={page}
           setPage={setPage}
