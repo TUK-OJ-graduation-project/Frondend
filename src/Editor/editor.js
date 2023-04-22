@@ -27,52 +27,53 @@ const SourceCodeContainer = styled.div`
 
 function ProblemInfoComponent(props) {
   const [problemData, setProblemData] = useState([]);
-  //get
-  useEffect(() => {
-  axios.get('http://127.0.0.1:8000/api/v1/problems/1/')
-    .then(function (response){
-      console.log(response);
-      setProblemData(response.data);
-    })
-    .catch(error => {
-      console.error(error);
-    })
-    //setProblemData(post);
-  },[]);
 
-  //post
   useEffect(() => {
-    axios.post('http://127.0.0.1:8000/api/v1/problems/')
-    .then(function (response) {
-      console.log(response);
-      setProblemData(response.data);
-    })
-    .catch(error => {
-      console.error(error);
-    })
-    //setProblemData(get);
+    // GET 요청
+    axios
+      .get('http://127.0.0.1:8000/api/v1/problems/list/', { withCredentials: true })
+      .then(function (response) {
+        console.log(response);
+        setProblemData(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   }, []);
 
+
+    // POST 요청
+    axios
+      .post('http://127.0.0.1:8000/api/v1/problems/', { withCredentials: true })
+      .then(function (response) {
+        console.log(response);
+        setProblemData(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
   return (
-    <div>
-      <div>
+  <div>
+  {problemData.map(problem => (
+    <div key={problem.id}>
       <h4>
-        Problem {problemData.id} - {problemData.title}
+        Problem {problem.id} - {problem.title}
       </h4>
-      <p>Level: {problemData.level}</p>
-      <p>Type: {problemData.type}</p>
+      <p>Level: {problem.level}</p>
+      <p>Type: {problem.type}</p>
       <h3>Description</h3>
-      <p>{problemData.description}</p>
-    </div>
-    <div>
+      <p>{problem.description}</p>
       <h4>Input</h4>
-      <pre>{problemData.input_example}</pre>
+      <pre>{problem.input_format}</pre>
       <h4>Output</h4>
-      <pre>{problemData.output_example}</pre>
+      <pre>{problem.output_format}</pre>
       <h4>Hint</h4>
-      <p>{problemData.hint}</p>
+      <p>{problem.hint}</p>
     </div>
-  </div>
+  ))}
+</div>
+
   );
 }
 
@@ -115,7 +116,7 @@ function ExecutionResultComponent() {
 }
 
 function Editor() {
-  const [problemData] = useState(null);
+  //const [problemData] = useState(null);
   return (
     <div className="online-judge-layout">
       <Layout>
