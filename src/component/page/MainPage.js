@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import PostList from "../list/PostList";
+import PostList from "../list/Postlist";
 // import Community from "../page/Community";
 import Problemlist from "../list/Problemlist";
 import Button from "../ui/Button";

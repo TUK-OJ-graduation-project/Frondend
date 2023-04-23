@@ -8,9 +8,8 @@ import CommonTableRow from '../table/CommonTableRow';
 import ReactDOM from 'react-dom';
 import './Post.css';
 import problemdata from '../../problemdata';
-import {View} from 'react-native';
 import Pagination from "../../Pagination";
-import PostList from './PostList';
+import PostList from './Postlist';
 // import Pagination from 'react-js-pagination';
 
 const ProblemList = props => {
