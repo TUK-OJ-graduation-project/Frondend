@@ -15,7 +15,7 @@ const Wrapper = styled.div`
     }
 `;
 
-function PostList(props){
+function Postlist(props){
     const { posts, onClickItem } = props;
 
     return (
@@ -35,4 +35,4 @@ function PostList(props){
     );
     }
 
-export default PostList;
+export default Postlist;

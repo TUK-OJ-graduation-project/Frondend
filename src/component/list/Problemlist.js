@@ -1,17 +1,16 @@
 import React, { useState, useEffect, FaAngleDown } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 import styled from "styled-components";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CommonTable from '../table/CommonTable';
 import CommonTableColumn from '../table/CommonTableColumn';
 import CommonTableRow from '../table/CommonTableRow';
 import ReactDOM from 'react-dom';
 import './Post.css';
-import postList from '../../problemdata';
-import Dropdown from '../Dropdown.jsx';
-import Dropdown1 from '../Dropdown1.jsx';
-import Dropdown2 from '../Dropdown2.jsx';
-import {View} from 'react-native';
+import problemdata from '../../problemdata';
+import Pagination from "../../Pagination";
+import PostList from './Postlist';
+// import Pagination from 'react-js-pagination';
 
 
 const PostList = props => {
