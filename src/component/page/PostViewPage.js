@@ -92,7 +92,7 @@ function PostViewPage(props){
             color: "black",
             fontSize: 16,
         },
-        Problem:{
+        QnA:{
             float: "left",
             fontSize: 16
         }
