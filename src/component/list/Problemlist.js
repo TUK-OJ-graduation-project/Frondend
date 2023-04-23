@@ -149,19 +149,6 @@ const ProblemList = (props) => {
         </label> */}
 
       {/* ----------------------------- */}
-      <main>
-        {/* {problemdata.slice(offset, offset + limit).map(({ id, title, level }) => ( */}
-        {problemdata
-          .slice(offset, offset + limit)
-          .map(({ id, title, level }) => (
-            <article key={id}>
-              <h3>
-                {id}. {title}
-              </h3>
-              <p>{level}</p>
-            </article>
-          ))}
-      </main>
 
       <footer>
         <Pagination

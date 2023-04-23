@@ -1,0 +1,56 @@
+.sidebar {
+    background-color: #FFFFFF;
+    flex-basis: 30%;
+  }
+
+  .source-code-and-execution-result {
+    background-color: #303666;
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap-reverse;
+    padding: 32px 0;
+  }
+
+  .source-code-container {
+    background-color: #FFFFFF;
+    border-radius: 30px;
+    margin: 15px;
+    padding: 18px;
+    flex-basis: 50%;
+  }
+
+  .execute-container {
+    background-color: #FFFFFF;
+    border-radius: 30px;
+    margin: 15px;
+    padding: 18px;
+    flex-basis: 50%;
+  }
+
+  .problem-container {
+    background-color: #303666;
+    border-radius: 30px;
+    flex-basis: 100%;
+  }
+
+  .problem-container2 {
+    background-color: #FFFFFF;
+    border-radius: 30px;
+    margin: 10px;
+    padding: 30px;
+    flex-basis: 100%;
+    margin-top: 20px !important;
+  }
+.problem_info_container{
+    background-color: #FFFFFF;
+    border-radius: 30px;
+    margin: 15px;
+    padding: 18px;
+    flex-basis: 50%;
+}
+p{
+  font-size: 20px;
+}
+pre{
+  font-size: small;
+}

@@ -13,7 +13,9 @@
     "mysql": "^2.18.1",
     "nodemon": "^2.0.22",
     "react": "^18.2.0",
+    "react-ace": "^10.1.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^4.8.0",
     "react-js-pagination": "^3.0.3",
     "react-native-web": "^0.19.2",
     "react-router": "^6.10.0",
@@ -46,6 +48,8 @@
       "last 1 safari version"
     ]
   },
+  "proxy": "http://127.0.0.1/8000/",
+  "secure": false,
   "description": "프론트엔드 개발",
   "main": "index.js",
   "keywords": [],
