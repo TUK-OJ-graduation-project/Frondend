@@ -10,7 +10,7 @@ export const links = [
   },
   {
     id: 2,
-    url: '/QnA',
+    url: '/qna',
     text: 'QnA',
     className: 'qna-link',
   },

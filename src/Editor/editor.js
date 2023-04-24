@@ -5,6 +5,7 @@ import axios from 'axios';
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/theme-monokai';
+import { useParams } from 'react-router';
 
 export const GlobalStyle = createGlobalStyle`
   body {
@@ -27,9 +28,8 @@ const SourceCodeContainer = styled.div`
 
 function ProblemInfoComponent(props) {
   const [problemData, setProblemData] = useState([]);
-
+  const id = useParams().id;
   useEffect(() => {
-    const id = props.id;
     // GET 요청
     axios
       .get(`http://127.0.0.1:8000/api/v1/problems/${id}/`, { withCredentials: true })
@@ -41,8 +41,6 @@ function ProblemInfoComponent(props) {
         console.error(error);
       });
   }, []);
-
-
     // POST 요청
     // axios
     //   .post('http://127.0.0.1:8000/api/v1/problems/', { withCredentials: true })

@@ -17,20 +17,23 @@ const ProblemList = (props) => {
   
   const [dataList, setDataList] = useState([]);
   const navigate = useNavigate();
-  const getProblem = (index) => {
-    navigate(`/problem/${index}`);
+
+  const getProblem = () => {
+   //navigate(`/problem/${index}`);
+   console.log("test");
   }
   useEffect(() => {
     // setDataList(problemdata);
     axios
       .get("http://127.0.0.1:8000/api/v1/problems/list/")
       .then(function (response) {
+       // console.log(response)
         setDataList(response.data);
       })
       .catch(function (error) {
         console.log(error);
       });
-    setDataList(problemdata);
+   // setDataList(problemdata);
     // .then((res) => res.json())
     // .then((data) => problemdata(data));
   }, []);
@@ -117,7 +120,7 @@ const ProblemList = (props) => {
           {dataList &&
             dataList.map((item, index) => {
               return (
-                <CommonTableRow key={index} onClick = {(index) => getProblem}>
+                <CommonTableRow key={item.id}>
                   <CommonTableColumn>{item.id}</CommonTableColumn>
                   <CommonTableColumn>{item.title}</CommonTableColumn>
                   <CommonTableColumn>{item.level}</CommonTableColumn>

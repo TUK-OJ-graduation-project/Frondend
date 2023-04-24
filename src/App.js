@@ -36,10 +36,9 @@ class App extends React.Component {
           {/* <Route path="/home" component={Home} /> */}
           <Route path="/" element={<Main />} />
           <Route path="/problem/:id" element={<Editor />} />
-          <Route path="/qna" element={<QnA />} />
           <Route path="/Problemlist" element={<Problemlist />} />
           {/* <Route path="/Community" element={<Community/>}/> */}
-          <Route path="/MainPage" element={<MainPage />} />
+          <Route path="/qna" element={<MainPage />} />
           <Route path="post-write" element={<PostWritePage />} />
           <Route path="post/:postId" element={<PostViewPage />} />
         </Routes>
