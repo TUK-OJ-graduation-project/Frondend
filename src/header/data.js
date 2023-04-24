@@ -17,7 +17,7 @@ export const links = [
   {
     id: 3,
     url: '/Problemlist',
-    text: 'ProblemList',
+    text: 'Problem',
     className : 'problemlist-link',
   }
 ]
