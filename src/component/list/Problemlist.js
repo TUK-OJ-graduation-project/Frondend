@@ -13,7 +13,13 @@ import PostList from "./Postlist";
 // import Pagination from 'react-js-pagination';
 
 const ProblemList = (props) => {
+
+  
   const [dataList, setDataList] = useState([]);
+  const navigate = useNavigate();
+  const getProblem = (index) => {
+    navigate(`/problem/${index}`);
+  }
   useEffect(() => {
     // setDataList(problemdata);
     axios
@@ -37,7 +43,7 @@ const ProblemList = (props) => {
   //dropdown
   const [view, setView] = useState(false);
   const [selected, setSelected] = useState("");
-  const navigate = useNavigate();
+ // const navigate = useNavigate();
   return (
     <>
       {/* <Wrapper> */}
@@ -111,7 +117,7 @@ const ProblemList = (props) => {
           {dataList &&
             dataList.map((item, index) => {
               return (
-                <CommonTableRow key={index}>
+                <CommonTableRow key={index} onClick = {(index) => getProblem}>
                   <CommonTableColumn>{item.id}</CommonTableColumn>
                   <CommonTableColumn>{item.title}</CommonTableColumn>
                   <CommonTableColumn>{item.level}</CommonTableColumn>

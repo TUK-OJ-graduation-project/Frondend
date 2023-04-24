@@ -10,16 +10,16 @@ export const links = [
   },
   {
     id: 2,
-    url: '/Problem',
-    text: 'Problem',
-    className: 'problem-link',
-  },
-  {
-    id: 3,
     url: '/QnA',
     text: 'QnA',
     className: 'qna-link',
   },
+  {
+    id: 3,
+    url: '/Problemlist',
+    text: 'ProblemList',
+    className : 'problemlist-link',
+  }
 ]
 
 export const social = [

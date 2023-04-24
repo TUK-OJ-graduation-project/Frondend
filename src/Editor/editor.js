@@ -29,9 +29,10 @@ function ProblemInfoComponent(props) {
   const [problemData, setProblemData] = useState([]);
 
   useEffect(() => {
+    const id = props.id;
     // GET 요청
     axios
-      .get('http://127.0.0.1:8000/api/v1/problems/list/', { withCredentials: true })
+      .get(`http://127.0.0.1:8000/api/v1/problems/${id}/`, { withCredentials: true })
       .then(function (response) {
         console.log(response);
         setProblemData(response.data);
@@ -43,35 +44,36 @@ function ProblemInfoComponent(props) {
 
 
     // POST 요청
-    axios
-      .post('http://127.0.0.1:8000/api/v1/problems/', { withCredentials: true })
-      .then(function (response) {
-        console.log(response);
-        setProblemData(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    // axios
+    //   .post('http://127.0.0.1:8000/api/v1/problems/', { withCredentials: true })
+    //   .then(function (response) {
+    //     console.log(response);
+    //     setProblemData(response.data);
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
 
   return (
   <div>
-  {problemData.map(problem => (
-    <div key={problem.id}>
+    {/* {problemData.map(problem => ( */}
+    <div key={problemData.id}>
       <h4>
-        Problem {problem.id} - {problem.title}
+        Problem {problemData.id} - {problemData.title}
       </h4>
-      <p>Level: {problem.level}</p>
-      <p>Type: {problem.type}</p>
+      <p>Level: {problemData.level}</p>
+      <p>Type: {problemData.type}</p>
       <h3>Description</h3>
-      <p>{problem.description}</p>
+      <p>{problemData.description}</p>
       <h4>Input</h4>
-      <pre>{problem.input_format}</pre>
+      <pre>{problemData.input_format}</pre>
       <h4>Output</h4>
-      <pre>{problem.output_format}</pre>
+      <pre>{problemData.output_format}</pre>
       <h4>Hint</h4>
-      <p>{problem.hint}</p>
+      <p>{problemData.hint}</p>
     </div>
-  ))}
+  
+  {/*) )} */}
 </div>
 
   );

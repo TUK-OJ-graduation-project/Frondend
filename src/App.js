@@ -35,7 +35,7 @@ class App extends React.Component {
           {/* <h1> COMMUNITY </h1> */}
           {/* <Route path="/home" component={Home} /> */}
           <Route path="/" element={<Main />} />
-          <Route path="/problem" element={<Editor />} />
+          <Route path="/problem/:id" element={<Editor />} />
           <Route path="/qna" element={<QnA />} />
           <Route path="/Problemlist" element={<Problemlist />} />
           {/* <Route path="/Community" element={<Community/>}/> */}
