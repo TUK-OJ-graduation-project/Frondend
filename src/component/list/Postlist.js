@@ -17,7 +17,7 @@ const Wrapper = styled.div`
 
 function Postlist(props){
     const { posts, onClickItem } = props;
-
+    
     return (
         <Wrapper>
         {posts.map((post, index) => {

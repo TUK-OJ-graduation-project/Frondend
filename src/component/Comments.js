@@ -32,13 +32,25 @@ const Comments = ({ board_id }) => {
 
   // 페이지에 해당하는 댓글 목록은 page 상태가 변경될 때마다 가져옴
   // 맨 처음 페이지가 1이므로 처음엔 1페이지에 해당하는 댓글을 가져온다
-  useEffect(() => {
-    const getCommentList = async () => {
-      const { data } = await axios.get(
-        `/api/comment/list?board_id=${board_id}&page_number=${page}&page_size=${5}`
-      );
-      return data;
-    };
+  // useEffect(() => {
+  //   const getCommentList = async () => {
+  //     const { data } = await axios.get(
+  //       `/api/comment/list?board_id=${board_id}&page_number=${page}&page_size=${5}`
+  //     );
+  //     return data;
+  //   };
+
+    useEffect(() => {
+      // setDataList(problemdata);
+      axios
+        .get("http://127.0.0.1:8000/api/v1/qna/questions/${id}")
+        .then(function (response) {
+          setDataList(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+  
     // 기존 commentList에 데이터를 덧붙임
     getCommentList().then((result) =>
       setCommentList([...commentList, ...result])
@@ -50,7 +62,8 @@ const Comments = ({ board_id }) => {
     // 댓글 전체 갯수 구하기
     const getTotalBoard = async () => {
       const { data } = await axios.get(
-        `/api/comment/count?board_id=${board_id}`
+        // `/api/comment/count?board_id=${board_id}`
+        `api/v1/qna/questions/${id}`
       );
       return data.total;
     };

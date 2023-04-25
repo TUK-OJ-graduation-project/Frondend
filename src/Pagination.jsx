@@ -27,11 +27,12 @@ function Pagination({ total, limit, page, setPage }) {
     </>
   );
 }
-
 const Nav = styled.nav`
+  /* width: 100%;
+  max-width: 720px; */
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   gap: 4px;
   margin: 16px;
 `;

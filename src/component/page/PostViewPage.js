@@ -100,7 +100,9 @@ function PostViewPage(props) {
     <Wrapper>
       <Container>
         <div id="QnA" className="pagename">
-          <h1 style={{ color: "grey", float: "left" }}>QnA</h1>
+        <h1 style={{ color: "grey",  marginTop: 30, marginBottom: 30, fontSize: 30, fontWeight: "bold" }}>
+          QnA
+        </h1>
         </div>
       </Container>
       <Container>

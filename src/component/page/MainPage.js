@@ -46,22 +46,9 @@ function MainPage(props) {
   return (
     <Wrapper>
       <Container>
-        <div id="QnA" className="pagename">
-          <h1 style={{ color: "grey", float: "left" }}>QnA</h1>
-        </div>
-      </Container>
-      <Container>
-        <ol>
-          <li>
-            <a href="/MainPage">QnA</a>
-          </li>
-          {/* <li>
-                    <a href="/Community">Community</a>
-                    </li> */}
-          <li>
-            <a href="/Problemlist">Problem</a>
-          </li>
-        </ol>
+      <h1 style={{ color: "grey",  marginTop: 30, marginBottom: 30, fontSize: 30, fontWeight: "bold" }}>
+          QnA
+      </h1>
       </Container>
       <Container>
         <Button
@@ -73,11 +60,12 @@ function MainPage(props) {
         <PostList
           posts={data}
           onClickItem={(item) => {
+            
             navigate(`/post/${item.id}`);
           }}
         />
       </Container>
-
+{/* 
       <label>
         페이지 당 표시할 게시물 수:&nbsp;
         <select
@@ -90,8 +78,8 @@ function MainPage(props) {
           {/* <option value="15">15</option>
                 <option value="50">50</option>
                 <option value="100">100</option> */}
-        </select>
-      </label>
+        {/* </select> */}
+      {/* </label> */}
     </Wrapper>
   );
 }

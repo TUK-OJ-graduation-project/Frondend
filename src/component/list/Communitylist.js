@@ -19,7 +19,9 @@ function Communitylist(props){
     const { posts, onClickItem } = props;
 
     return (
+        
         <Wrapper>
+        
         {posts.map((post, index) => {
             return (
                 <CommunityListItem

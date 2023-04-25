@@ -1,6 +1,5 @@
 import React, { useState, useEffect, FaAngleDown } from "react";
 import axios from "axios";
-import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import CommonTable from "../table/CommonTable";
 import CommonTableColumn from "../table/CommonTableColumn";
@@ -8,10 +7,67 @@ import CommonTableRow from "../table/CommonTableRow";
 import ReactDOM from "react-dom";
 import "./Post.css";
 import problemdata from "../../problemdata";
+import styled from "styled-components";
 import Pagination from "../../Pagination";
 import PostList from "./Postlist";
 // import Pagination from 'react-js-pagination';
 
+// const Container = styled.div`
+//   width: 100%;
+//   max-width: 720px;
+//   align-content: center;
+//   & > * {
+//     :not(:last-child) {
+//       margin-bottom: 16px;
+//     }
+//   }
+// `;
+// const Wrapper = styled.div`
+//     width: calc(100% - 32px);
+//     padding: 16px;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: flex-start;
+//     justify-content: center;
+//     border: 1px solid grey;
+//     border-radius: 8px;
+//     background: lightgrey;
+//     cursor: pointer;
+//     :hover {
+//         background: grey;
+//     }
+// `;
+
+// const Wrapper = styled.div`
+//     display: flex;
+//     flex-direction: column;
+//     align-items: flex-start;
+//     justify-content: center;
+
+//     & > * {
+//         :not(:last-child){
+//             margin-bottom: 16px;
+//         }
+//     }
+// `;
+
+const Wrapper = styled.div`
+  padding: 16px;
+  width: calc(100% - 32px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+const Container = styled.div`
+  width: 100%;
+  max-width: 1000px;
+  & > * {
+    :not(:last-child) {
+      margin-bottom: 16px;
+    }
+  }
+`;
 const ProblemList = (props) => {
 
   
@@ -47,12 +103,14 @@ const ProblemList = (props) => {
   const [view, setView] = useState(false);
   const [selected, setSelected] = useState("");
  // const navigate = useNavigate();
+ 
   return (
     <>
-      {/* <Wrapper> */}
-
+      <Wrapper>
+      <Container>
       <div className="pagename">
-        <h1 style={{ color: "grey", marginLeft: 150, marginTop: 100 }}>
+        {/* <h1 style={{ color: "grey", marginLeft: 150, marginTop: 100 }}> */}
+        <h1 style={{ color: "grey",  marginTop: 30, marginBottom: 30, fontSize: 30, fontWeight: "bold" }}>
           PROBLEM LIST
         </h1>
       </div>
@@ -168,7 +226,8 @@ const ProblemList = (props) => {
           setPage={setPage}
         />
       </footer>
-      {/* </Wrapper> */}
+      </Container>
+      </Wrapper>
     </>
   );
 };

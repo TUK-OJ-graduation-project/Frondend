@@ -27,6 +27,9 @@ function CommunityListItem(props){
 
     return (
         <Wrapper onClick={onClick}>
+        <h1 style={{ color: "grey",  marginTop: 30, marginBottom: 30, fontSize: 30, fontWeight: "bold" }}>
+          QnA
+        </h1>
             <TitleText>{post.title}</TitleText>
         </Wrapper>
     );
