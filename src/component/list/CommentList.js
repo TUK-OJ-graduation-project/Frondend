@@ -16,12 +16,14 @@ const Wrapper = styled.div`
 `;
 
 function CommentList(props){
+    
     const { comments } = props;
+    console.log(comments);
 
     return (
         <Wrapper>
             {comments.map((comment, index) => {
-                return <CommentListItem key= {comment.id} comment={comment}/>;
+                return <CommentListItem key= {comment.id} comment={comment.answer}/>;
             })}
         </Wrapper>
     );

@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PostList from "../list/Postlist";
@@ -9,6 +9,7 @@ import Button from "../ui/Button";
 import data from "../../data.json";
 import Pagination from "react-js-pagination";
 import "./Paging.css";
+import axios from "axios";
 
 const Wrapper = styled.div`
   padding: 16px;
@@ -42,6 +43,25 @@ function MainPage(props) {
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
   const navigate = useNavigate();
+  const [qnaData, setQnaDataList] = useState([]);
+
+  useEffect(() => {
+    // setDataList(problemdata);
+    axios
+      .get("http://127.0.0.1:8000/api/v1/qna/questions/")
+      .then(function (response) {
+      // console.log(response.data[0]);
+       setQnaDataList(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+   // setDataList(problemdata);
+    // .then((res) => res.json())
+    // .then((data) => problemdata(data));
+  }, []);
+
+
 
   return (
     <Wrapper>
@@ -58,10 +78,10 @@ function MainPage(props) {
           }}
         />
         <PostList
-          posts={data}
+          posts={qnaData}
           onClickItem={(item) => {
             
-            navigate(`/post/${item.id}`);
+            navigate(`/post/${item.id}`, {state : item});
           }}
         />
       </Container>

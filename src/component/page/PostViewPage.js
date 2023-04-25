@@ -5,7 +5,7 @@ import CommentList from "../list/CommentList";
 import TextInput from "../ui/TextInput";
 import Button from "../ui/Button";
 import data from "../../data.json";
-
+import { useLocation } from "react-router";
 const Wrapper = styled.div`
   padding: 16px;
   width: clac(100% - 32px);
@@ -57,7 +57,8 @@ function PostViewPage(props) {
   });
 
   const [comment, setComment] = useState("");
-
+  const { state } = useLocation();
+ // console.log(state);
   const styles = {
     wrapper: {
       margin: 8,
@@ -118,16 +119,16 @@ function PostViewPage(props) {
               <img src={require("./tino.png")} style={styles.image} />
               {/* <img src="./public/profile.png" style={styles.image}></img> */}
             </div>
-            <TitleText>{post.title}</TitleText>
+            <TitleText>{state.title}</TitleText>
             <div style={styles.contentContainer}>
               <span style={styles.nameText}>이름</span>
             </div>
-            <ContentText>{post.content}</ContentText>
+            <ContentText>{state.question}</ContentText>
           </div>
         </PostContainer>
 
         <CommentLabel>댓글</CommentLabel>
-        <CommentList comments={post.comments} />
+        <CommentList comments={state.answers} />
 
         <TextInput
           height={40}
