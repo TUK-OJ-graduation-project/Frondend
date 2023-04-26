@@ -6,7 +6,7 @@ import Button from "../ui/Button";
 
 const Wrapper = styled.div`
     padding: 16px;
-    width: calc(100% - 32px);
+    width: calc(100% - 50px);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -45,11 +45,11 @@ function PostWritePage(props){
 
     const getValue = e => {
         const {name, value} = e.target;
-        setpostContent({
-            ...postContent,
-            [name]: value
-        })
-        console.log(postContent);
+        // setpostContent({
+        //     ...postContent,
+        //     [name]: value
+        // })
+        console.log(name, value);
     }
 
     return(
@@ -58,11 +58,11 @@ function PostWritePage(props){
         <Wrapper>
             <Container>
                 <TextInput className="title-input"
-                    height={20}
+                    height={50}
                     type='text'
                     placeholder='제목'
                     onChange={getValue}
-                    name='title'
+                    name='postTitle'
                     /* // height={20}
                     // value={title}
                     // onChange={(event) => { */
@@ -76,18 +76,20 @@ function PostWritePage(props){
                         setContent(event.target.value);
                     }}
                 /> */}
+                <Container>
                  <TextInput className="content-input"
                     type='content'
                     placeholder='내용'
                     onChange={getValue}
-                    name='content'
+                    name='postContent'
                     /* // height={20}
                     // value={title}
                     // onChange={(event) => { */
                     /* //     setTitle(event.target.value);
                     // }} */
                 />
-
+                </Container>
+                <Container>
                 <Button
                     title="글 작성하기"
                     onClick={() =>{
@@ -95,6 +97,7 @@ function PostWritePage(props){
                         setViewContent(viewContent.concat({...postContent}));
                     }}
                 />
+                </Container>
             </Container>
         </Wrapper>
     );

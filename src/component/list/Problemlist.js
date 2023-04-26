@@ -127,7 +127,7 @@ const ProblemList = (props) => {
         onChange={({ target: { value } }) => setLimit(String(value))}
       >
         <option value="code">code</option>
-        <option value="short">short</option>
+        <option value="blank">blank</option>
         <option value="select">select</option>
       </select>
       {/* <View style={{flex: 1, float: "right"}}>
@@ -147,7 +147,7 @@ const ProblemList = (props) => {
             "ID",
             "문제명",
             <select
-              style={{ textAlign: "center", fontSize: 15, height: 30 }}
+              style={{ textAlign: "center", fontSize: 15, height: 30, color: "black" }}
               type="String"
               value={limit}
               onChange={({ target: { value } }) => setLimit(String(value))}
@@ -159,7 +159,7 @@ const ProblemList = (props) => {
               <option value="lv 5">lv 5</option>
             </select>,
             <select
-              style={{ textAlign: "center", fontSize: 15, height: 30 }}
+              style={{ textAlign: "center", fontSize: 15, height: 30, color: "black" }}
               type="String"
               value={limit}
               onChange={({ target: { value } }) => setLimit(String(value))}
