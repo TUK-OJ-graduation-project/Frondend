@@ -32,7 +32,7 @@ function ProblemInfoComponent(props) {
   useEffect(() => {
     // GET 요청
     axios
-      .get(`http://127.0.0.1:8000/api/v1/problems/${id}/`, { withCredentials: true })
+      .get(`http://127.0.0.1:8000/api/v1/problems/${id}/`)
       .then(function (response) {
         console.log(response);
         setProblemData(response.data);
@@ -40,7 +40,7 @@ function ProblemInfoComponent(props) {
       .catch((error) => {
         console.error(error);
       });
-  }, []);
+  }, [id]);
     // POST 요청
     // axios
     //   .post('http://127.0.0.1:8000/api/v1/problems/', { withCredentials: true })
@@ -56,21 +56,22 @@ function ProblemInfoComponent(props) {
   <div>
     {/* {problemData.map(problem => ( */}
     <div key={problemData.id}>
-      <h4>
+      <h5>
         Problem {problemData.id} - {problemData.title}
-      </h4>
+      </h5>
+
       <p>Level: {problemData.level}</p>
       <p>Type: {problemData.type}</p>
-      <h3>Description</h3>
+      <h5>Description</h5>
       <p>{problemData.description}</p>
-      <h4>Input</h4>
-      <pre>{problemData.input_format}</pre>
-      <h4>Output</h4>
-      <pre>{problemData.output_format}</pre>
-      <h4>Hint</h4>
+      <h5>Input</h5>
+      <p>{problemData.input_format}</p>
+      <h5>Output</h5>
+      <p>{problemData.output_format}</p>
+      <h5>Hint</h5>
       <p>{problemData.hint}</p>
     </div>
-  
+
   {/*) )} */}
 </div>
 

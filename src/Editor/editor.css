@@ -3,13 +3,21 @@
     flex-basis: 30%;
   }
 
-  .source-code-and-execution-result {
+  .source-code-and-execution-result2 {
     background-color: #303666;
     display: flex;
     flex-direction: row-reverse;
     flex-wrap: wrap-reverse;
     padding: 32px 0;
   }
+  .editor_container {
+    background-color: #303666;
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap-reverse;
+    padding: 32px 0;
+  }
+
 
   .source-code-container {
     background-color: #FFFFFF;
