@@ -27,31 +27,72 @@ const Container = styled.div`
 function PostWritePage(props){
     const navigate = useNavigate();
 
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
+    // const [postTitle, setpostTitle] = useState({
+    //     postTitle: ``,
+    //     postContent: ``
+    // });
+    const [postContent, setpostContent] = useState({
+        postTitle: ``,
+        postContent: ``
+    });
+
+    // const [postTitle, postContent] = useState({
+       
+    // })
+    //적힌 내용들 저장해주는 state
+    const [viewContent, setViewContent] = useState([]);
+
+
+    const getValue = e => {
+        const {name, value} = e.target;
+        setpostContent({
+            ...postContent,
+            [name]: value
+        })
+        console.log(postContent);
+    }
 
     return(
+            
+
         <Wrapper>
             <Container>
-                <TextInput
+                <TextInput className="title-input"
                     height={20}
-                    value={title}
-                    onChange={(event) => {
-                        setTitle(event.target.value);
-                    }}
+                    type='text'
+                    placeholder='제목'
+                    onChange={getValue}
+                    name='title'
+                    /* // height={20}
+                    // value={title}
+                    // onChange={(event) => { */
+                    /* //     setTitle(event.target.value);
+                    // }} */
                 />
-                <TextInput
+                {/* <TextInput
                     height={480}
                     value={content}
                     onChange={(event) => {
                         setContent(event.target.value);
                     }}
+                /> */}
+                 <TextInput className="content-input"
+                    type='content'
+                    placeholder='내용'
+                    onChange={getValue}
+                    name='content'
+                    /* // height={20}
+                    // value={title}
+                    // onChange={(event) => { */
+                    /* //     setTitle(event.target.value);
+                    // }} */
                 />
 
                 <Button
                     title="글 작성하기"
                     onClick={() =>{
-                        navigate("/");
+                        // navigate("/");
+                        setViewContent(viewContent.concat({...postContent}));
                     }}
                 />
             </Container>

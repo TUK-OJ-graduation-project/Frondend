@@ -77,7 +77,7 @@ function PostViewPage(props) {
       float: "right",
     },
     contentContainer: {
-      marginLeft: 8,
+      marginLeft: 10,
       display: "flex",
       flexDirections: "column",
       float: "right",
@@ -86,7 +86,7 @@ function PostViewPage(props) {
     nameText: {
       color: "black",
       fontSize: 16,
-      fontWeight: "bold",
+      fontWeight: "bold"
     },
     commentText: {
       color: "black",
@@ -110,7 +110,7 @@ function PostViewPage(props) {
         <Button
           title="뒤로 가기"
           onClick={() => {
-            navigate("/");
+            navigate("/qna");
           }}
         />
         <PostContainer>

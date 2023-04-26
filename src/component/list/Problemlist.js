@@ -175,6 +175,8 @@ const ProblemList = (props) => {
           ]}
         >
           {/* //여기서부터 되나 안되나 확인 */}
+
+          
           {dataList &&
             dataList.map((item, index) => {
               return (

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import PostList from "../list/Postlist";
 // import Community from "../page/Community";
@@ -10,6 +10,12 @@ import data from "../../data.json";
 import Pagination from "react-js-pagination";
 import "./Paging.css";
 import axios from "axios";
+//게시판에 글 입력받기 위한 라우터들 
+// import { useDispatch } from 'react-redux';
+// import { dataSave } from '@modules/boardReducer';
+// import { uriSave } from '@modules/uriReducer'
+
+
 
 const Wrapper = styled.div`
   padding: 16px;
@@ -19,6 +25,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 const Container = styled.div`
   width: 100%;
   max-width: 720px;
@@ -28,7 +35,6 @@ const Container = styled.div`
     }
   }
 `;
-
 // const Paging = () => {
 //     const [page, setPage] = useState(1);
 
@@ -44,6 +50,8 @@ function MainPage(props) {
   const offset = (page - 1) * limit;
   const navigate = useNavigate();
   const [qnaData, setQnaDataList] = useState([]);
+  const[title, setTitle] = useState('')
+  const[content, setContent] = useState('')
 
   useEffect(() => {
     // setDataList(problemdata);

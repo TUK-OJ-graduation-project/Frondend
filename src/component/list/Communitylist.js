@@ -1,4 +1,5 @@
-import React from "react";
+import axios from "axios"; 
+import React, { useState, useEffect, FaAngleDown } from "react";
 import styled from "styled-components";
 import CommunityListItem from "./CommunityListItem";
 
@@ -16,19 +17,43 @@ const Wrapper = styled.div`
 `;
 
 function Communitylist(props){
+    const [dataList, setDataList] = useState([]);
     const { posts, onClickItem } = props;
-
+    useEffect(() => {
+        // setDataList(problemdata);
+        axios
+          .get("http://127.0.0.1:8000/api/v1/qna/questions/${id}")
+          .then(function (response) {
+           // console.log(response)
+            setDataList(response.data);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+       // setDataList(problemdata);
+        // .then((res) => res.json())
+        // .then((data) => problemdata(data));
+      }, []);
     return (
         
         <Wrapper>
         
-        {posts.map((post, index) => {
+        {/* {posts.map((post, index) => { */}
+            {dataList &&
+            dataList.map((item, index) => {
             return (
+                // <CommunityListItem
+                //     key={post.id}
+                //     post={post}
+                //     onClick={() => {
+                //         onClickItem(post);
+                //     }}
+                // />
                 <CommunityListItem
-                    key={post.id}
-                    post={post}
+                    key={item.id}
+                    post={item}
                     onClick={() => {
-                        onClickItem(post);
+                        onClickItem(item);
                     }}
                 />
             );
