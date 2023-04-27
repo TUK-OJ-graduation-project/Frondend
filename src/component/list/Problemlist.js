@@ -177,17 +177,16 @@ const ProblemList = (props) => {
           {/* //여기서부터 되나 안되나 확인 */}
 
           
-          {dataList &&
-            dataList.map((item, index) => {
-              return (
-                <CommonTableRow key={item.id}>
-                  <CommonTableColumn>{item.id}</CommonTableColumn>
-                  <CommonTableColumn>{item.title}</CommonTableColumn>
-                  <CommonTableColumn>{item.level}</CommonTableColumn>
-                  <CommonTableColumn>{item.lan}</CommonTableColumn>
-                </CommonTableRow>
-              );
-            })}
+          {
+            dataList.map(problem => (
+              <CommonTableRow key={problem.id} problemType={problem.type}>
+                <CommonTableColumn>{problem.id}</CommonTableColumn>
+                <CommonTableColumn>{problem.title}</CommonTableColumn>
+                <CommonTableColumn>{problem.type}</CommonTableColumn>
+              </CommonTableRow>
+            ))
+          }
+
 
           {/* ------------------------- */}
           {/* <main>

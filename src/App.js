@@ -15,6 +15,9 @@ import QnA from "./QnA";
 import Footer from "./footer/footer";
 import Headerbar from "./header/Header";
 import Main from "./Main/main";
+import QuizPage from "./OX_quiz/QuizPage";
+import ShortQuizPage from "./ShortQuiz/shortQuiz";
+
 const MainTitleText = styled.p`
   font-size: 24px;
   font-weight: bold;
@@ -37,6 +40,8 @@ class App extends React.Component {
           <Route path="/" element={<Main />} />
           <Route path="/problem/:id" element={<Editor />} />
           <Route path="/Problemlist" element={<Problemlist />} />
+          <Route path="/oxquiz/:id" element={<QuizPage />} />
+          <Route path="/shortquiz/:id" element={<ShortQuizPage />} />
           {/* <Route path="/Community" element={<Community/>}/> */}
           <Route path="/qna" element={<MainPage />} />
           <Route path="post-write" element={<PostWritePage />} />

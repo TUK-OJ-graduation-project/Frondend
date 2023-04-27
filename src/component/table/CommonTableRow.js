@@ -1,13 +1,24 @@
 import React from 'react';
 import { useNavigate } from 'react-router';
 
-const CommonTableRow = ({children}) => {
+const CommonTableRow = ({ children, problemType }) => {
   const navigator = useNavigate();
- // console.log(children);
-const test = (id) => {
-  navigator(`/problem/${id}`);
-   
-}
+  const test = (id) => {
+     switch (problemType) {
+        case 'code':
+           navigator(`/problem/${id}`);
+           break;
+        case 'blank':
+           navigator(`/shortquiz/${id}`);
+           break;
+        case 'select':
+           navigator(`/oxquiz/${id}`);
+           break;
+        default:
+           console.error("Invalid problem type");
+           break;
+     }
+  };
   return (
     <tr className="common-table-row" onClick = {() => test(children[0].props.children)}>
       {
@@ -16,5 +27,6 @@ const test = (id) => {
     </tr>
   )
 }
+
 
 export default CommonTableRow;

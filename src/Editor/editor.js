@@ -5,20 +5,22 @@ import axios from 'axios';
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-javascript';
 import 'ace-builds/src-noconflict/theme-monokai';
-import { useParams } from 'react-router';
+import { Link } from "react-router-dom";
+import { BrowserRouter as Router, useParams } from 'react-router-dom';
 
 export const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     background-color: #ffffff;
+    height: 100vh;
   }
 `;
+
 const Layout = styled.div`
-  display: flex;
-  justify-content: space-between;
+flex-direction: row;
   padding: 5px 1;
   color: #000000;
-  font-size: 30px;
+  font-size: 20px;
   font-family: sans-serif;
   flex: 1;
 `;
@@ -32,7 +34,7 @@ function ProblemInfoComponent(props) {
   useEffect(() => {
     // GET 요청
     axios
-      .get(`http://127.0.0.1:8000/api/v1/problems/${id}/`)
+      .get(`http://127.0.0.1:8000/api/v1/problems/code/${id}/`)
       .then(function (response) {
         console.log(response);
         setProblemData(response.data);
@@ -59,7 +61,6 @@ function ProblemInfoComponent(props) {
       <h5>
         Problem {problemData.id} - {problemData.title}
       </h5>
-
       <p>Level: {problemData.level}</p>
       <p>Type: {problemData.type}</p>
       <h5>Description</h5>
@@ -100,7 +101,7 @@ function SourceCodeInputComponent() {
         editorProps={{ $blockScrolling: true }}
         height="500px"
         width="100%"
-        fontSize={16}
+        fontSize={13}
       />
       <button onClick={handleSourceCodeSubmit}>Submit</button>
     </div>
@@ -120,12 +121,10 @@ function Editor() {
   //const [problemData] = useState(null);
   return (
     <div className="online-judge-layout">
-      <Layout>
-        <GlobalStyle />
-      </Layout>
       <Layout className="editor_container">
+        {/* Remove Sidebar from here */}
         <div className="problem_info_container">
-        <ProblemInfoComponent />
+          <ProblemInfoComponent />
         </div>
         <SourceCodeContainer className="source-code-and-execution-result">
           <div className="source-code-container">
