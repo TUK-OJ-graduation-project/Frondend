@@ -1,35 +1,16 @@
-
 import './quiz.css';
-import React, { useEffect,useState } from 'react';
-import {  useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
-
-
-// function OXQuizinfo(props) {
-
-
-//   return (
-//   <div>
-//     {/* {problemData.map(problem => ( */}
-//     <div key={problemData.id}>
-//       <p>{problemData.title}</p>
-//       <p>{problemData.description}</p>
-//     </div>
-
-//   {/*) )} */}
-// </div>
-
-//   );
-// }
-
 
 function QuizPage() {
   const [problemData, setProblemData] = useState({});
   const id = useParams().id;
+
   useEffect(() => {
     // GET 요청
     axios
-      .get(`http://127.0.0.1:8000/api/v1/problems/select/${id}/`)
+      .get(`http://127.0.0.1:8000/api/v1/problems/select/1/`)
       .then(function (response) {
         console.log(response);
         setProblemData(response.data);
@@ -39,36 +20,42 @@ function QuizPage() {
       });
   }, [id]);
 
-  const [currentQuestion, setCurrentQuestion] = useState(0);
   const [userAnswers, setUserAnswers] = useState([]);
+  const [isCorrect, setIsCorrect] = useState(false);
 
-  const handleAnswerSubmit = (answer) => {
-    setUserAnswers([...userAnswers, answer]);
-    setCurrentQuestion(currentQuestion + 1);
+  const [loading, setLoading] = useState(false);
+  const [feedback, setFeedback] = useState("");
+
+  const handleAnswerSubmit = (is_correct) => {
+    setLoading(true);
+    setIsCorrect(is_correct);
+    setUserAnswers(prevAnswers => [...prevAnswers, is_correct]);
+    setFeedback(is_correct ? "정답입니다!" : "틀렸습니다.");
+    setLoading(false);
   };
 
-  const currentAnswer = userAnswers[currentQuestion];
 
   return (
     <div className="quiz-container">
       <div className="qzproblem-container">
-      {problemData && Object.keys(problemData).length > 0 && (
-        <div key={problemData.id}>
-          <p>{problemData.title}</p>
-          <p>{problemData.description}</p>
-        </div>
-)}
+        {problemData && Object.keys(problemData).length > 0 && (
+          <div key={problemData.id}>
+            <p className="qzproblem-container2">{problemData.title}</p>
+            <p className="qzproblem-container2">{problemData.description}</p>
+          </div>
+        )}
       </div>
       <div className="answer-container">
-        {currentAnswer !== undefined && currentAnswer !== null && (
-          <p>정답: {currentAnswer ? "O" : "X"}</p>
-        )}
-        <button className="answer-btn" onClick={() => handleAnswerSubmit(true)}>O</button>
-        <button className="answer-btn" onClick={() => handleAnswerSubmit(false)}>X</button>
+        <button className="answer-btn" onClick={() => handleAnswerSubmit(problemData.is_correct)}>
+          O
+        </button>
+        <button className="answer-btn" onClick={() => handleAnswerSubmit(!problemData.is_correct)}>
+          X
+        </button>
       </div>
+      <p className="feedback">{feedback}</p>
     </div>
   );
-
 }
 
 export default QuizPage;

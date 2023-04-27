@@ -19,39 +19,36 @@ function ShortQuizPage() {
       });
   }, [id]);
 
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [userAnswers, setUserAnswers] = useState([]);
+  const [userAnswer, setUserAnswer] = useState('');
   const [inputValue, setInputValue] = useState('');
+  const [feedback, setFeedback] = useState(null);
 
   const handleAnswerSubmit = () => {
-    // Replace 'questions' with 'problemData'
-    const isCorrect = inputValue.toUpperCase() === problemData.answer;
-    setUserAnswers([...userAnswers, isCorrect]);
-    setCurrentQuestion(currentQuestion + 1);
+    const isCorrect = inputValue.trim().toLowerCase() === problemData.blank_answer.trim().toLowerCase();
+    setUserAnswer(inputValue);
+    setFeedback(isCorrect ? '정답입니다' : '틀렸습니다');
     setInputValue('');
   };
-
-  const currentAnswer = userAnswers[currentQuestion];
 
   return (
     <div className='quiz-container'>
       <div className='qzproblem-container'>
         {problemData && Object.keys(problemData).length > 0 && (
           <div key={problemData.id}>
-            <p>{problemData.title}</p>
-            <p>{problemData.description}</p>
+            <p className="qzproblem-container2">{problemData.title}</p>
+            <p className="qzproblem-container2">{problemData.description}</p>
           </div>
         )}
         <input value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
       </div>
       <div className='answer-container'>
-        {currentAnswer !== undefined && (
-          <p>Correct answer: {currentAnswer ? 'O' : 'X'}</p>
-        )}
         <button className='answer-btn' onClick={handleAnswerSubmit}>
           Submit
         </button>
       </div>
+      <p className='feedback'>
+            {feedback}
+          </p>
     </div>
   );
 }

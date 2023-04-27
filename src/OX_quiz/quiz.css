@@ -16,11 +16,22 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  
 }
 .qzproblem-container {
     margin-bottom: 2rem;
+    color: rgb(5, 5, 5);
+    font-size: large;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .qzproblem-container2{
     color: rgb(255, 255, 255);
     font-size: large;
+    text-align: center;
+    margin-bottom: 1rem;
   }
 
 .answer-container {
@@ -41,4 +52,8 @@
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 5px; /* 버튼 모서리 둥글게 */
+}
+
+.feedback{
+  color: white;
 }
