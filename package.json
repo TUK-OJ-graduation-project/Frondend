@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ckeditor/ckeditor5-build-classic": "^37.1.0",
+    "@ckeditor/ckeditor5-react": "^6.0.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -17,6 +19,8 @@
     "react-ace": "^10.1.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
+    "html-react-parser": "^3.0.16",
+    "node-html-parser": "^2.0.2",
     "react-js-pagination": "^3.0.3",
     "react-native-web": "^0.19.2",
     "react-redux": "^8.0.5",
