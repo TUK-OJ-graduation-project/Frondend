@@ -19,6 +19,7 @@ const Wrapper = styled.div`
 const Container = styled.div`
   width: 100%;
   max-width: 720px;
+  margin-bottom: 20px;
 
   & > * {
     :not(:last-child) {
@@ -114,6 +115,9 @@ function PostViewPage(props) {
             navigate("/qna");
           }}
         />
+        </Container>
+      <Container>
+        
         <PostContainer>
           <div>
             <div style={StyleSheet.imageContainer}>
@@ -145,6 +149,7 @@ function PostViewPage(props) {
           }}
         />
       </Container>
+      
     </Wrapper>
   );
 }
