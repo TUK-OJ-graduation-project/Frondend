@@ -2,13 +2,12 @@ import axios from "axios";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import styled from "styled-components";
-import MainPage from "./component/page/MainPage";
+import MainCommunity from "./component/page/MainCommunity";
 import PostWritePage from "./component/page/PostWritePage";
 import PostViewPage from "./component/page/PostViewPage";
 import Problemlist from "./component/list/Problemlist";
 import Community from "./component/page/Community";
 import Button from "./component/ui/Button";
-import Home from "./component/page/Home";
 
 import Editor from "./Editor/editor";
 import QnA from "./QnA";
@@ -43,7 +42,7 @@ class App extends React.Component {
           <Route path="/oxquiz/:id" element={<QuizPage />} />
           <Route path="/shortquiz/:id" element={<ShortQuizPage />} />
           {/* <Route path="/Community" element={<Community/>}/> */}
-          <Route path="/qna" element={<MainPage />} />
+          <Route path="/qna" element={<MainCommunity />} />
           <Route path="post-write" element={<PostWritePage />} />
           <Route path="post/:postId" element={<PostViewPage />} />
         </Routes>

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import PostList from "../list/Postlist";
-// import Community from "../page/Community";
+// import MainCommunity from "../page/MainCommunity";
 import Problemlist from "../list/Problemlist";
 import Button from "../ui/Button";
 import data from "../../data.json";
@@ -43,7 +43,7 @@ const Container = styled.div`
 //     }
 // }
 
-function MainPage(props) {
+function MainCommunity(props) {
   const {} = props;
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(1);
@@ -112,4 +112,4 @@ function MainPage(props) {
   );
 }
 
-export default MainPage;
+export default MainCommunity;

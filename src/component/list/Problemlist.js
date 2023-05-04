@@ -83,7 +83,7 @@ const ProblemList = (props) => {
     axios
       .get("http://127.0.0.1:8000/api/v1/problems/list/")
       .then(function (response) {
-       // console.log(response)
+        console.log(response)
         setDataList(response.data);
       })
       .catch(function (error) {

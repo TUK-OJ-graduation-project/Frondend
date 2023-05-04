@@ -40,7 +40,7 @@ function Community(props){
             <Container>
                 <ol>
                     <li>
-                    <a href="/MainPage">QnA</a>
+                    <a href="/MainCommunity">QnA</a>
                     </li>
                     <li>
                     <a href="/Community">Community</a>
