@@ -6,6 +6,7 @@ import TextInput from "../ui/CommentInput";
 import Button from "../ui/Button";
 import data from "../../data.json";
 import { useLocation } from "react-router";
+import ReactHtmlParser from 'html-react-parser';
 
 const Wrapper = styled.div`
   padding: 16px;
@@ -44,6 +45,7 @@ const ContentText = styled.p`
   line-height: 32px;
   white-space: pre-wrap;
 `;
+
 
 const CommentLabel = styled.p`
   font-size: 16px;
@@ -134,7 +136,10 @@ function PostViewPage(props) {
 
         <CommentLabel>댓글</CommentLabel>
         <CommentList comments={state.answers} />
+        {/* ---------------- */}
+       
 
+            {/* ------------- */}
         <TextInput
           height={40}
           value={comment}

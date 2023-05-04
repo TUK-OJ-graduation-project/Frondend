@@ -7,7 +7,6 @@ import Page from "./Page.css";
 import {CKEditor} from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ReactHtmlParser from 'html-react-parser';
-var ReactHtmlParsser 
 
 // onChange={(event, editor)=>{
 //     const data = editor.getData();
@@ -193,28 +192,10 @@ function PostWritePage(props){
                                 {ReactHtmlParser(element.content)}
                             </div>
                         </div>
-                            
-                )}
-
+                    )}
                     </TitleText>
-                    {/* <div style={styles.contentContainer}>
-                    </div> */}
                 </div>
                 </PostContainer>
-                    {/* {viewContent.map(element =>
-                        <div>
-                            <div style={StyleSheet.imageContainer}>
-                            <img src={require("./tino.png")} style={styles.image} />
-                        </div>
-                            <div style={styles.contentContainer}>
-                            <h2>{element.title}</h2>
-                            </div>
-                            <div>
-                                {element.content}
-                            </div>
-                        </div>
-                            
-                )} */}
             </Container>
         </Wrapper>
     );
