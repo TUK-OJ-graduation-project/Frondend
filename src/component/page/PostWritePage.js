@@ -56,7 +56,7 @@ const ContentText = styled.p`
 `;
 
 function PostWritePage(props){
-    
+
     const navigate = useNavigate();
     const styles = {
         wrapper: {
@@ -106,7 +106,7 @@ function PostWritePage(props){
     });
 
     // const [postTitle, postContent] = useState({
-       
+
     // })
     //적힌 내용들 저장해주는 state => 화면에 보여주려고!
     const [viewContent, setViewContent] = useState([]);
@@ -119,7 +119,7 @@ function PostWritePage(props){
             [name]: value
         })
         console.log(postContent);
-        
+
     }
 
     return(
@@ -133,8 +133,8 @@ function PostWritePage(props){
         />
             </Container>
             <Container classname="post-view">
-            <input style={{height: 50}} 
-                className="title-input" 
+            <input style={{height: 50}}
+                className="title-input"
                     type='text'
                 placeholder='  제목'
                     onChange={getValue}
@@ -167,18 +167,18 @@ function PostWritePage(props){
                     setViewContent(viewContent.concat({...postContent}));
                 }} >
                     <Button title="글 작성하기"/>
-                </button>  
+                </button>
                 </Container>
             <div></div>
                 <Container>
-                
+
                 </Container>
             <Container>
                 <PostContainer className="post-container">
                 <div>
-                   
+
                     {/* <img src="./public/profile.png" style={styles.image}></img> */}
-               
+
                     {/* <TitleText>{state.title}</TitleText> */}
                     <TitleText>
                     {viewContent.map(element =>

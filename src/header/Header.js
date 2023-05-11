@@ -1,28 +1,36 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FaBars } from 'react-icons/fa';
-import { links, social } from './data';
-import logo from './signature.png';
-import './header.css';
 import { Link } from 'react-router-dom';
+import logo from './signature.png';
+import { links, social } from './data';
+import './header.css';
+
 
 const Headerbar = () => {
-  // 메뉴버튼
-  const [showLinks, setShowLinks] = useState(false);
+  const [showSocial, setShowSocial] = useState(false); // 변수명 수정
   const linksContainerRef = useRef(null);
   const linksRef = useRef(null);
+
+
   const toggleLinks = () => {
-    setShowLinks(!showLinks);
-  };
-  useEffect(() => {
+    linksContainerRef.current.classList.toggle('show-links');
     const linksHeight = linksRef.current.getBoundingClientRect().height;
-    if (showLinks) {
+    const containerHeight = linksContainerRef.current.getBoundingClientRect().height;
+    if (containerHeight === 0) {
       linksContainerRef.current.style.height = `${linksHeight}px`;
     } else {
-      linksContainerRef.current.style.height = '0px';
+      linksContainerRef.current.style.height = 0;
     }
-  }, [showLinks]);
+  };
 
-
+  useEffect(() => {
+    const linksHeight = linksRef.current.getBoundingClientRect().height;
+    if (showSocial) {
+      linksContainerRef.current.style.height = `${linksHeight}px`;
+    } else {
+      linksContainerRef.current.style.height = 0;
+    }
+  }, [showSocial]);
 
   return (
     <nav>
@@ -52,18 +60,35 @@ const Headerbar = () => {
         </div>
         {/* social 아이콘 가져오기 */}
         <ul className='social-icons'>
-          {social.map((socialIcon) => {
-            const { id, url, icon } = socialIcon;
-            return (
-              <li key={id}>
-                <a href={url}>{icon}</a>
-              </li>
-            );
-          })}
-        </ul>
+  {social.map((socialIcon) => {
+    const { id, url, icon, text } = socialIcon;
+    return (
+      <li key={id}>
+        <a href={url} onClick={() => setShowSocial(id)}>
+          {icon}
+          {/* {showSocial === id && (
+          <ul className='social-list'>
+            <li>
+              <button>{text}</button>
+            </li>
+            <li>
+              <button>{text}</button>
+            </li>
+            <li>
+              <button>{text}</button>
+            </li>
+          </ul>
+        )} */}
+        <button>{text}</button>
+        </a>
+
+      </li>
+    );
+  })}
+</ul>
+
       </div>
     </nav>
   );
-};
-
-export default Headerbar;
+}
+  export default Headerbar;

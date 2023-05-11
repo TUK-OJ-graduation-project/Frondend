@@ -25,7 +25,25 @@ export const links = [
 export const social = [
   {
     id: 1,
-    url: 'https://www.twitter.com',
     icon: <CgProfile />,
   },
+  {
+    id: 2,
+    url: '/login',
+    text: 'Login',
+    className : 'login-link',
+
+  },
+  {
+    id: 3,
+    url: '/logout',
+    text: 'LogOut',
+    className : 'logout-link',
+  },
+  {
+    id: 4,
+    url: '/create_problem',
+    text: 'Manage',
+    className : 'management-link',
+  }
 ]
