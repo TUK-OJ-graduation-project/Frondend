@@ -29,7 +29,7 @@ export const social = [
   },
   {
     id: 2,
-    url: '/login',
+    url: '/loginhome',
     text: 'Login',
     className : 'login-link',
 
