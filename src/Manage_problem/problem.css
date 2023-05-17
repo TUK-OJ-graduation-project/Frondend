@@ -84,7 +84,22 @@ width: 30%;
     font-weight: 500;
     color: #374151;
   }
-
+#title{
+  display: block;
+    width: 100%;
+    padding: 0.625rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #4b5563;
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.375rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  overflow: auto; /* 내용이 넘칠 경우 스크롤을 생성합니다. */
+  min-height: 100px; /* 최소 높이를 지정합니다. 필요에 따라 조절해주세요. */
+  min-width: 100px; /* 최소 높이를 지정합니다. 필요에 따라 조절해주세요. */
+}
   #description {
     display: block;
     width: 100%;
@@ -97,6 +112,10 @@ width: 30%;
     border: 1px solid #e5e7eb;
     border-radius: 0.375rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+  overflow: auto; /* 내용이 넘칠 경우 스크롤을 생성합니다. */
+  min-height: 100px; /* 최소 높이를 지정합니다. 필요에 따라 조절해주세요. */
+  min-width: 100px; /* 최소 높이를 지정합니다. 필요에 따라 조절해주세요. */
   }
 
   #description:focus {
@@ -125,14 +144,22 @@ width: 30%;
   }
 
   #input_format-label {
+
     display: block;
-    margin-bottom: 0.5rem;
+    width: 100%;
+    padding: 0.625rem;
     font-size: 0.875rem;
-    font-weight: 500;
-    color: #374151;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #4b5563;
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.375rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     }
 
     #input_format {
+
     display: block;
     width: 100%;
     padding: 0.625rem 1.5rem;
@@ -144,6 +171,9 @@ width: 30%;
     border: 1px solid #D1D5DB;
     border-radius: 0.375rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    overflow: auto; /* 내용이 넘칠 경우 스크롤을 생성합니다. */
+  min-height: 100px; /* 최소 높이를 지정합니다. 필요에 따라 조절해주세요. */
+  min-width: 100px; /* 최소 높이를 지정합니다. 필요에 따라 조절해주세요. */
     }
 
     #input_format:focus {
@@ -221,6 +251,9 @@ width: 30%;
       border: 1px solid #e5e7eb;
       border-radius: 0.375rem;
       transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      overflow: auto; /* 내용이 넘칠 경우 스크롤을 생성합니다. */
+  min-height: 100px; /* 최소 높이를 지정합니다. 필요에 따라 조절해주세요. */
+  min-width: 100px; /* 최소 높이를 지정합니다. 필요에 따라 조절해주세요. */
     }
 
     #hint:focus {
@@ -329,3 +362,21 @@ width: 30%;
   display: inline-block;
   border-radius: 0.25rem;
 }
+
+#output_format {
+
+  display: block;
+  width: 100%;
+  padding: 0.625rem 1.5rem;
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #374151;
+  background-color: #F3F4F6;
+  border: 1px solid #D1D5DB;
+  border-radius: 0.375rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  overflow: auto; /* 내용이 넘칠 경우 스크롤을 생성합니다. */
+min-height: 100px; /* 최소 높이를 지정합니다. 필요에 따라 조절해주세요. */
+min-width: 100px; /* 최소 높이를 지정합니다. 필요에 따라 조절해주세요. */
+  }

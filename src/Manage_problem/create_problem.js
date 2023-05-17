@@ -95,23 +95,23 @@ function ProblemForm() {
 
         <div>
             <label htmlFor="title" >Title</label>
-            <input type="text" id="title" name="title" value={problem.title} placeholder="문제 제목" onChange={handleChange} required />
+            <textarea type="text" id="title" name="title" value={problem.title} placeholder="문제 제목" onChange={handleChange} required />
         </div>
         <div>
             <label htmlFor="description" >Description</label>
-            <input type="text" id="description" name="description" value={problem.description}  placeholder="문제 설명" onChange={handleChange} required />
+            <textarea type="text" id="description" name="description" value={problem.description}  placeholder="문제 설명" onChange={handleChange} required />
         </div>
         <div>
             <label htmlFor="input_format">Input Format</label>
-            <input type="text" id="input_format" name="input_format" value={problem.input_format}  placeholder="입력값" onChange={handleChange} required />
+            <textarea type="text" id="input_format" name="input_format" value={problem.input_format}  placeholder="입력값" onChange={handleChange} required />
         </div>
         <div>
             <label htmlFor="output_format">Output Format</label>
-            <input type="text" id="output_format" name="output_format" value={problem.output_format}  placeholder="출력값" onChange={handleChange} required />
+            <textarea type="text" id="output_format" name="output_format" value={problem.output_format}  placeholder="출력값" onChange={handleChange} required />
         </div>
         <div>
             <label htmlFor="hint">Hint</label>
-            <input type="text" id="hint" value={problem.hint} name="hint" placeholder="힌트" onChange={handleChange} required />
+            <textarea type="text" id="hint" value={problem.hint} name="hint" placeholder="힌트" onChange={handleChange} required />
         </div>
     </div>
 
