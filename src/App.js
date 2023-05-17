@@ -16,6 +16,12 @@ import Headerbar from "./header/Header";
 import Main from "./Main/main";
 import QuizPage from "./OX_quiz/QuizPage";
 import ShortQuizPage from "./ShortQuiz/shortQuiz";
+import ProblemForm from "./Manage_problem/create_problem";
+import LoginHome from "./Login/LoginHome";
+//import LoginComponent from "./Login/login";
+//import MyPage from "./Login/component/MyPage";
+//import { useSelector } from 'react-redux';
+
 
 const MainTitleText = styled.p`
   font-size: 24px;
@@ -37,10 +43,14 @@ class App extends React.Component {
           {/* <h1> COMMUNITY </h1> */}
           {/* <Route path="/home" component={Home} /> */}
           <Route path="/" element={<Main />} />
+          <Route path="/loginhome" element={<LoginHome />}/>
+          {/* <Route path="/login" element={<LoginComponent />} />
+          {state.user.isLogin ? <MyPage /> : <LoginComponent />} */}
           <Route path="/problem/:id" element={<Editor />} />
           <Route path="/Problemlist" element={<Problemlist />} />
           <Route path="/oxquiz/:id" element={<QuizPage />} />
           <Route path="/shortquiz/:id" element={<ShortQuizPage />} />
+          <Route path="/create_problem" element={<ProblemForm />} />
           {/* <Route path="/Community" element={<Community/>}/> */}
           <Route path="/qna" element={<MainCommunity />} />
           <Route path="post-write" element={<PostWritePage />} />
