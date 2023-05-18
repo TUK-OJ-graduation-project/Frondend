@@ -79,14 +79,27 @@ function ProblemInfoComponent(props) {
   );
 }
 
-function SourceCodeInputComponent() {
+function SourceCodeInputComponent({ problemId }) {
   const [sourceCode, setSourceCode] = useState('');
 
   function handleSourceCodeChange(value) {
     setSourceCode(value);
   }
   function handleSourceCodeSubmit() {
-    alert(sourceCode);
+    axios
+      .post('http://127.0.0.1:8000/api/v1/solutions/submit/', {
+        source_code: sourceCode,
+        object_id: problemId,
+        content_type: 8
+      })
+      .then(response => {
+        console.log(response);
+        alert('Source code submitted successfully!');
+      })
+      .catch(error => {
+        console.error(error);
+        alert('An error occurred while submitting the source code.');
+      })
   }
 
   return (
@@ -108,10 +121,24 @@ function SourceCodeInputComponent() {
   );
 }
 
-function ExecutionResultComponent() {
+function ExecutionResultComponent({ problemId }) {
+  const [executionResult, setExecutionResult] = useState(null);
+
+  useEffect(() => {
+    // 문제에 대한 최신 솔루션을 얻을 수 있는 엔드포인트가 있다고 가정. (아직 DRF에서 안정해줌..ㅠ)
+    axios
+      .get(`http://127.0.0.1:8000/api/v1/problems/${problemId}/latest_solution/`)
+      .then(response => {
+        setExecutionResult(response.data.execution_result);
+      })
+      .catch(error => {
+        console.error(error);
+      }), [problemId]
+
   return (
     <div className="execution-result">
       <h4>Execution Result</h4>
+      <p>{executionResult}</p>
       <button>Execute</button>
     </div>
   );
