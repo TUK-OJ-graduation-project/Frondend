@@ -3,10 +3,10 @@ import styled, { createGlobalStyle } from 'styled-components';
 import './editor.css';
 import axios from 'axios';
 import AceEditor from 'react-ace';
-import 'ace-builds/src-noconflict/mode-javascript';
+import 'ace-builds/src-noconflict/mode-python'; // 자바스크립트에서 파이썬으로 바꿔줌..!
 import 'ace-builds/src-noconflict/theme-monokai';
-import { Link } from "react-router-dom";
-import { BrowserRouter as Router, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+// import { response } from 'express'; //express는 Node.js 위에 웹 애플리케이션 구축을 위한 프레임워크(백엔드!!)
 
 export const GlobalStyle = createGlobalStyle`
   body {
@@ -17,7 +17,7 @@ export const GlobalStyle = createGlobalStyle`
 `;
 
 const Layout = styled.div`
-flex-direction: row;
+  flex-direction: row;
   padding: 5px 1;
   color: #000000;
   font-size: 20px;
@@ -28,21 +28,19 @@ const SourceCodeContainer = styled.div`
   flex: 3;
 `;
 
-function ProblemInfoComponent(props) {
-  const [problemData, setProblemData] = useState([]);
-  const id = useParams().id;
+function ProblemInfoComponent({problemId}) {
+  const [problemData, setProblemData] = useState({});
   useEffect(() => {
     // GET 요청
     axios
-      .get(`http://127.0.0.1:8000/api/v1/problems/code/${id}/`)
-      .then(function (response) {
-        console.log(response);
+      .get(`http://127.0.0.1:8000/api/v1/problems/code/${problemId}/`)
+      .then(response => {
         setProblemData(response.data);
       })
-      .catch((error) => {
+      .catch(error => {
         console.error(error);
       });
-  }, [id]);
+  }, [problemId]);
     // POST 요청
     // axios
     //   .post('http://127.0.0.1:8000/api/v1/problems/', { withCredentials: true })
@@ -79,7 +77,7 @@ function ProblemInfoComponent(props) {
   );
 }
 
-function SourceCodeInputComponent({ problemId }) {
+function SourceCodeInputComponent({ problemId, executionResult, setExecutionResult }) {
   const [sourceCode, setSourceCode] = useState('');
 
   function handleSourceCodeChange(value) {
@@ -87,26 +85,46 @@ function SourceCodeInputComponent({ problemId }) {
   }
   function handleSourceCodeSubmit() {
     axios
-      .post('http://127.0.0.1:8000/api/v1/solutions/submit/', {
-        source_code: sourceCode,
-        object_id: problemId,
-        content_type: 8
-      })
-      .then(response => {
-        console.log(response);
-        alert('Source code submitted successfully!');
+    .post('http://127.0.0.1:8000/api/v1/solutions/submit/', {
+      source_code: sourceCode,
+      object_id: problemId, // CodingProblem id
+      content_type: 8 // 문제 유형(code)
+    })
+    .then(response => {
+      console.log('Response:', response);
+      console.log('Execution result:', response.data.execution_result);
+      alert('Source code submitted successfully!');
+
+      // 'long polling(롱 폴링)' 시작
+      const solutionId = response.data.id;
+      const intervalId = setInterval(() => {
+        axios
+        .get('http://127.0.0.1:8000/api/v1/solutions/submit/${solutionId}/')
+        .then(response => {
+          console.log('Polling response:', response);
+          const executionResult = response.data.execution_result;
+          if (executionResult) {
+            setExecutionResult(executionResult);
+            clearInterval(intervalId); // Stop polling
+        }
       })
       .catch(error => {
-        console.error(error);
-        alert('An error occurred while submitting the source code.');
-      })
+        console.error('An error occurred during polling:', error);
+        clearInterval(intervalId); // Stop polling
+      });
+    }, 2000); // Poll every 2 seconds (2초마다 폴링)
+    })
+    .catch(error => {
+      console.error(error);
+      alert('An error occurred while submitting the source code.');
+    });
   }
 
   return (
     <div className="source-code-input">
       <h4>Source Code</h4>
       <AceEditor
-        mode="javascript"
+        mode="python" // javascript에서 python으로 바꿈.
         theme="monokai"
         name="source-code-editor"
         value={sourceCode}
@@ -121,44 +139,41 @@ function SourceCodeInputComponent({ problemId }) {
   );
 }
 
-function ExecutionResultComponent({ problemId }) {
-  const [executionResult, setExecutionResult] = useState(null);
+function ExecutionResultComponent({ problemId, executionResult, setExecutionResult }) {
+
+  const [, forceUpdate] = useState();
 
   useEffect(() => {
-    // 문제에 대한 최신 솔루션을 얻을 수 있는 엔드포인트가 있다고 가정. (아직 DRF에서 안정해줌..ㅠ)
-    axios
-      .get(`http://127.0.0.1:8000/api/v1/problems/${problemId}/latest_solution/`)
-      .then(response => {
-        setExecutionResult(response.data.execution_result);
-      })
-      .catch(error => {
-        console.error(error);
-      }), [problemId]
+    forceUpdate({});
+  }, [executionResult]);
 
   return (
     <div className="execution-result">
       <h4>Execution Result</h4>
       <p>{executionResult}</p>
-      <button>Execute</button>
     </div>
   );
 }
 
 function Editor() {
-  //const [problemData] = useState(null);
+  const { id } = useParams(); // URL 파라미터로부터 id 가져오기
+  const problemId = id; // problemId에 할당
+
+  const [executionResult, setExecutionResult] = useState(null);
+
   return (
     <div className="online-judge-layout">
       <Layout className="editor_container">
         {/* Remove Sidebar from here */}
         <div className="problem_info_container">
-          <ProblemInfoComponent />
+          <ProblemInfoComponent problemId={problemId} />
         </div>
         <SourceCodeContainer className="source-code-and-execution-result">
           <div className="source-code-container">
-            <SourceCodeInputComponent />
+            <SourceCodeInputComponent problemId={problemId} executionResult={executionResult} setExecutionResult={setExecutionResult} />
           </div>
           <div className="execute-container">
-            <ExecutionResultComponent />
+            <ExecutionResultComponent problemId={problemId} executionResult={executionResult} setExecutionResult={setExecutionResult}/>
           </div>
         </SourceCodeContainer>
       </Layout>
