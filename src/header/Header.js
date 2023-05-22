@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 const Headerbar = () => {
   // 메뉴버튼
   const [showLinks, setShowLinks] = useState(false);
+  const [showSocial, setShowSocial] = useState(null);
   const linksContainerRef = useRef(null);
   const linksRef = useRef(null);
   
