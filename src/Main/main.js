@@ -38,7 +38,7 @@ function Main(props){
         axios
           .get(`http://127.0.0.1:8000/api/v1/qna/questions/`)
           .then(function (response) {
-           setDataList2(response.data.slice(0, 5)); // 처음 5개 요소만 사용
+           setDataList2(response.data.slice(0, 5)); // 처음 5개 요소만 사용 
           })
           .catch(function (error) {
             console.log(error);

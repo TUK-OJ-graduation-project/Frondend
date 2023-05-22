@@ -10,6 +10,7 @@ const Headerbar = () => {
   const [showLinks, setShowLinks] = useState(false);
   const linksContainerRef = useRef(null);
   const linksRef = useRef(null);
+  
   const toggleLinks = () => {
     setShowLinks(!showLinks);
   };
