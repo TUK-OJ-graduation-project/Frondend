@@ -29,7 +29,7 @@ const MainTitleText = styled.p`
 class App extends React.Component {
   render() {
     return (
-      // <BrowserRouter>
+      //<BrowserRouter>
       //   <MainTitleText> COMMUNITY </MainTitleText>
       <Router>
         <Headerbar />
@@ -37,7 +37,12 @@ class App extends React.Component {
           {/* <h1> COMMUNITY </h1> */}
           {/* <Route path="/home" component={Home} /> */}
           <Route path="/" element={<Main />} />
+          <Route path="/loginhome" element={<LoginHome />}/>
+          <Route path="/main_qna/:id" element={<PostViewPage />} />
+          {/* <Route path="/login" element={<LoginComponent />} />
+          {state.user.isLogin ? <MyPage /> : <LoginComponent />} */}
           <Route path="/problem/:id" element={<Editor />} />
+          <Route path="/main_problem/:id" element={<Editor />} />
           <Route path="/Problemlist" element={<Problemlist />} />
           <Route path="/oxquiz/:id" element={<QuizPage />} />
           <Route path="/shortquiz/:id" element={<ShortQuizPage />} />

@@ -4,7 +4,7 @@
     bottom: 0; /* 아래에 고정 */
     left: 0;
     right: 0;
-    background-color: rgb(235, 235, 235);
+    background-color: rgba(235, 235, 235, 0.1);
 }
 .contents{
     width: 90%;
@@ -19,8 +19,7 @@
     display: flex;
     justify-content: center;
     list-style: none;
-    margin: 0;
-    padding: 0;
+    padding-bottom: 2px;
 }
 
 .social-icons li {

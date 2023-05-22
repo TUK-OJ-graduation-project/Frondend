@@ -2,12 +2,12 @@ import React from 'react'
 import {CgProfile} from 'react-icons/cg'
 
 export const links = [
-  {
-    id: 1,
-    url: '/Notice',
-    text: 'Notice',
-    className: 'notice-link',
-  },
+  // {
+  //   id: 1,
+  //   url: '/Notice',
+  //   text: 'Notice',
+  //   className: 'notice-link',
+  // },
   {
     id: 2,
     url: '/qna',
