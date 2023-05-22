@@ -16,7 +16,7 @@ import Headerbar from "./header/Header";
 import Main from "./Main/main";
 import QuizPage from "./OX_quiz/QuizPage";
 import ShortQuizPage from "./ShortQuiz/shortQuiz";
-import LoginHome from './path/to/LoginHome';
+import LoginHome from './Login/LoginHome';
 
 
 const MainTitleText = styled.p`
