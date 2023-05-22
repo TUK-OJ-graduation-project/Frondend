@@ -60,32 +60,26 @@ const Headerbar = () => {
         </div>
         {/* social 아이콘 가져오기 */}
         <ul className='social-icons'>
-  {social.map((socialIcon) => {
-    const { id, url, icon, text } = socialIcon;
-    return (
-      <li key={id}>
-        <a href={url} onClick={() => setShowSocial(id)}>
-          {icon}
-          {/* {showSocial === id && (
-          <ul className='social-list'>
-            <li>
-              <button>{text}</button>
-            </li>
-            <li>
-              <button>{text}</button>
-            </li>
-            <li>
-              <button>{text}</button>
-            </li>
-          </ul>
-        )} */}
-        <button>{text}</button>
-        </a>
+          {social.map((socialIcon) => {
+            const { id, url, icon, text } = socialIcon;
+            return (
+              <li key={id}>
+                <a href={url} onClick={() => setShowSocial((prevShowSocial) => (prevShowSocial === id ? null : id))}>
+                  {icon}
+                  {showSocial && (
+                  <ul className='social-list'>
+                    <li className="vertical-buttons">
+                      <button>{text}</button>
+                    </li >
 
-      </li>
-    );
+                  </ul>
+                )}
+                {/* <button>{text}</button> */}
+                </a>
+              </li>
+  );
   })}
-</ul>
+        </ul>
 
       </div>
     </nav>
