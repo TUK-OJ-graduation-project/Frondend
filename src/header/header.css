@@ -230,6 +230,7 @@ Variables
       display: flex;
       font-weight: bold;
       font-size: 1.2rem;
+
     }
     .social-icons a {
       margin: 0 0.5rem;
@@ -271,3 +272,4 @@ Variables
     text-decoration: underline; /* 마우스 올렸을 때 밑줄 표시 */
     text-decoration-thickness: 2px;
   }
+

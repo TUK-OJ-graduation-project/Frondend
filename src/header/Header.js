@@ -54,14 +54,26 @@ const Headerbar = () => {
         {/* social 아이콘 가져오기 */}
         <ul className='social-icons'>
           {social.map((socialIcon) => {
-            const { id, url, icon } = socialIcon;
+            const { id, url, icon, text } = socialIcon;
             return (
               <li key={id}>
-                <a href={url}>{icon}</a>
+                <a href={url} onClick={() => setShowSocial((prevShowSocial) => (prevShowSocial === id ? null : id))}>
+                  {icon}
+                  {showSocial && (
+                  <ul className='social-list'>
+                    <li className="vertical-buttons">
+                      <button>{text}</button>
+                    </li >
+
+                  </ul>
+                )}
+                {/* <button>{text}</button> */}
+                </a>
               </li>
-            );
-          })}
+  );
+  })}
         </ul>
+
       </div>
     </nav>
   );
