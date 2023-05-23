@@ -87,8 +87,7 @@ function SourceCodeInputComponent({ problemId, executionResult, setExecutionResu
     axios
     .post('http://127.0.0.1:8000/api/v1/solutions/submit/', {
       source_code: sourceCode,
-      object_id: problemId, // CodingProblem id
-      content_type: 8 // 문제 유형(code)
+      problem: problemId, //CodingProblem id
     })
     .then(response => {
       console.log('Response:', response);
@@ -99,7 +98,7 @@ function SourceCodeInputComponent({ problemId, executionResult, setExecutionResu
       const solutionId = response.data.id;
       const intervalId = setInterval(() => {
         axios
-        .get('http://127.0.0.1:8000/api/v1/solutions/submit/${solutionId}/')
+        .get(`http://127.0.0.1:8000/api/v1/solutions/submit/${solutionId}/`)
         .then(response => {
           console.log('Polling response:', response);
           const executionResult = response.data.execution_result;
