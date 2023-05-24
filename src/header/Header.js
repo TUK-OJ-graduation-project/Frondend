@@ -1,36 +1,30 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FaBars } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
-import logo from './signature.png';
 import { links, social } from './data';
+import logo from './signature.png';
 import './header.css';
-
+import { Link } from 'react-router-dom';
 
 const Headerbar = () => {
-  const [showSocial, setShowSocial] = useState(false); // 변수명 수정
+  // 메뉴버튼
+  const [showLinks, setShowLinks] = useState(false);
+  const [showSocial, setShowSocial] = useState(null);
   const linksContainerRef = useRef(null);
   const linksRef = useRef(null);
-
-
+  
   const toggleLinks = () => {
-    linksContainerRef.current.classList.toggle('show-links');
-    const linksHeight = linksRef.current.getBoundingClientRect().height;
-    const containerHeight = linksContainerRef.current.getBoundingClientRect().height;
-    if (containerHeight === 0) {
-      linksContainerRef.current.style.height = `${linksHeight}px`;
-    } else {
-      linksContainerRef.current.style.height = 0;
-    }
+    setShowLinks(!showLinks);
   };
-
   useEffect(() => {
     const linksHeight = linksRef.current.getBoundingClientRect().height;
-    if (showSocial) {
+    if (showLinks) {
       linksContainerRef.current.style.height = `${linksHeight}px`;
     } else {
-      linksContainerRef.current.style.height = 0;
+      linksContainerRef.current.style.height = '0px';
     }
-  }, [showSocial]);
+  }, [showLinks]);
+
+
 
   return (
     <nav>
@@ -60,35 +54,30 @@ const Headerbar = () => {
         </div>
         {/* social 아이콘 가져오기 */}
         <ul className='social-icons'>
-  {social.map((socialIcon) => {
-    const { id, url, icon, text } = socialIcon;
-    return (
-      <li key={id}>
-        <a href={url} onClick={() => setShowSocial(id)}>
-          {icon}
-          {/* {showSocial === id && (
-          <ul className='social-list'>
-            <li>
-              <button>{text}</button>
-            </li>
-            <li>
-              <button>{text}</button>
-            </li>
-            <li>
-              <button>{text}</button>
-            </li>
-          </ul>
-        )} */}
-        <button>{text}</button>
-        </a>
+          {social.map((socialIcon) => {
+            const { id, url, icon, text } = socialIcon;
+            return (
+              <li key={id}>
+                <a href={url} onClick={() => setShowSocial((prevShowSocial) => (prevShowSocial === id ? null : id))}>
+                  {icon}
+                  {showSocial && (
+                  <ul className='social-list'>
+                    <li className="vertical-buttons">
+                      <button>{text}</button>
+                    </li >
 
-      </li>
-    );
+                  </ul>
+                )}
+                {/* <button>{text}</button> */}
+                </a>
+              </li>
+  );
   })}
-</ul>
+        </ul>
 
       </div>
     </nav>
   );
-}
-  export default Headerbar;
+};
+
+export default Headerbar;

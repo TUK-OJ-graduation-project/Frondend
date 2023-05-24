@@ -29,7 +29,7 @@ Variables
     --clr-grey-7: hsl(211, 27%, 70%);
     --clr-grey-8: hsl(210, 31%, 80%);
     --clr-grey-9: hsl(212, 33%, 89%);
-    --clr-grey-10: hsl(210, 36%, 96%);
+    --clr-grey-10: hsl(0, 0%, 100%);
     --clr-white: #fff;
     --clr-red-dark: hsl(360, 67%, 44%);
     --clr-red-light: hsl(360, 71%, 66%);
@@ -162,7 +162,8 @@ Variables
     transform: rotate(90deg);
   }
   .logo {
-    height: 40px;
+    height: 60px;
+    margin-left: 25px;
   }
   .links a {
     color: var(--clr-grey-3);
@@ -172,6 +173,9 @@ Variables
     display: block;
     padding: 0.5rem 1rem;
     transition: var(--transition);
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #131F89;
   }
   .links a:hover {
     background: var(--clr-primary-8);
@@ -180,6 +184,7 @@ Variables
   }
   .social-icons {
     display: none;
+
   }
   .links-container {
     height: 0;
@@ -196,7 +201,7 @@ Variables
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1rem;
+      padding: 0.35rem;
     }
     .nav-header {
       padding: 0;
@@ -223,6 +228,9 @@ Variables
     }
     .social-icons {
       display: flex;
+      font-weight: bold;
+      font-size: 1.2rem;
+
     }
     .social-icons a {
       margin: 0 0.5rem;
@@ -258,5 +266,10 @@ Variables
 
   .qna-link:hover:after {
     transform: scaleX(1);
+  }
+
+  .links-container .links li a:hover {
+    text-decoration: underline; /* 마우스 올렸을 때 밑줄 표시 */
+    text-decoration-thickness: 2px;
   }
 

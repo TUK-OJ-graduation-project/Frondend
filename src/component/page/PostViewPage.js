@@ -6,7 +6,7 @@ import TextInput from "../ui/CommentInput";
 import Button from "../ui/Button";
 import data from "../../data.json";
 import { useLocation } from "react-router";
-import ReactHtmlParser from 'html-react-parser';
+import ReactHtmlParser from "html-react-parser";
 
 const Wrapper = styled.div`
   padding: 16px;
@@ -46,7 +46,6 @@ const ContentText = styled.p`
   white-space: pre-wrap;
 `;
 
-
 const CommentLabel = styled.p`
   font-size: 16px;
   font-weight: 500;
@@ -62,7 +61,6 @@ function PostViewPage(props) {
 
   const [comment, setComment] = useState("");
   const { state } = useLocation();
- // console.log(state);
   const styles = {
     wrapper: {
       margin: 8,
@@ -90,7 +88,7 @@ function PostViewPage(props) {
     nameText: {
       color: "black",
       fontSize: 16,
-      fontWeight: "bold"
+      fontWeight: "bold",
     },
     commentText: {
       color: "black",
@@ -105,9 +103,17 @@ function PostViewPage(props) {
     <Wrapper>
       <Container>
         <div id="QnA" className="pagename">
-        <h1 style={{ color: "grey",  marginTop: 30, marginBottom: 30, fontSize: 30, fontWeight: "bold" }}>
-          QnA
-        </h1>
+          <h1
+            style={{
+              color: "grey",
+              marginTop: 30,
+              marginBottom: 30,
+              fontSize: 30,
+              fontWeight: "bold",
+            }}
+          >
+            QnA
+          </h1>
         </div>
       </Container>
       <Container>
@@ -117,9 +123,8 @@ function PostViewPage(props) {
             navigate("/qna");
           }}
         />
-        </Container>
+      </Container>
       <Container>
-        
         <PostContainer>
           <div>
             <div style={StyleSheet.imageContainer}>
@@ -130,16 +135,15 @@ function PostViewPage(props) {
             <div style={styles.contentContainer}>
               <span style={styles.nameText}>이름</span>
             </div>
-            <ContentText>{state.question}</ContentText>
+            <ContentText>{ReactHtmlParser(state.question)}</ContentText>
           </div>
         </PostContainer>
 
         <CommentLabel>댓글</CommentLabel>
         <CommentList comments={state.answers} />
         {/* ---------------- */}
-       
 
-            {/* ------------- */}
+        {/* ------------- */}
         <TextInput
           height={40}
           value={comment}
@@ -154,7 +158,6 @@ function PostViewPage(props) {
           }}
         />
       </Container>
-      
     </Wrapper>
   );
 }

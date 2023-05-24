@@ -1,6 +1,8 @@
 import './main.css';
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useParams, Link } from 'react-router-dom';
+import tino from './tino.png';
 
 function Main(props){
   // 공지사항 목록 창과 문제 목록 창을 겹치도록 설정합니다.
@@ -19,7 +21,7 @@ function Main(props){
           .get("http://127.0.0.1:8000/api/v1/problems/list/")
           .then(function (response) {
            // console.log(response)
-            setDataList(response.data);
+           setDataList(response.data.slice(0, 5)); // 처음 5개 요소만 사용
           })
           .catch(function (error) {
             console.log(error);
@@ -29,22 +31,42 @@ function Main(props){
         // .then((data) => problemdata(data));
       }, []);
 
+      const [dataList2, setDataList2] = useState([]);
+      const {id} = useParams();
+    useEffect(() => {
+        // setDataList(problemdata);
+        axios
+          .get(`http://127.0.0.1:8000/api/v1/qna/questions/`)
+          .then(function (response) {
+           setDataList2(response.data.slice(0, 5)); // 처음 5개 요소만 사용 
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }, []);
   return(
     <div>
+      <div className='main-tino-container'>
+        <img src={tino} className='main-tino'/>
+      </div>
     <div className='container'>
       <div className="notice-container">
-        <h2>공지사항</h2>
+        <h2>Q&A</h2>
         <ul>
-          <li><a href="#">공지사항 1</a></li>
-          <li><a href="#">공지사항 2</a></li>
-          <li><a href="#">공지사항 3</a></li>
+            {dataList2.map(qna => (
+              <li key={qna.id}>
+                <Link to={`/main_qna/${qna.id}`}>{qna.title}</Link>
+             </li>
+            ))}
         </ul>
       </div>
       <div className="problem-container">
-        <h2>문제 목록</h2>
+        <h2>PROBLEM LIST</h2>
         <ul>
             {dataList.map(problem => (
-              <li key={problem.id}><a href="#">{problem.title}</a></li>
+              <li key={problem.id}>
+                <Link to={`/main_problem/${problem.id}`}>{problem.title}</Link>
+              </li>
             ))}
           </ul>
       </div>

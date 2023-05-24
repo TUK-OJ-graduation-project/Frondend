@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import PostList from "../list/Postlist";
 // import MainCommunity from "../page/MainCommunity";
@@ -10,12 +10,10 @@ import data from "../../data.json";
 import Pagination from "react-js-pagination";
 import "./Paging.css";
 import axios from "axios";
-//게시판에 글 입력받기 위한 라우터들 
+//게시판에 글 입력받기 위한 라우터들
 // import { useDispatch } from 'react-redux';
 // import { dataSave } from '@modules/boardReducer';
 // import { uriSave } from '@modules/uriReducer'
-
-
 
 const Wrapper = styled.div`
   padding: 16px;
@@ -50,33 +48,39 @@ function MainCommunity(props) {
   const offset = (page - 1) * limit;
   const navigate = useNavigate();
   const [qnaData, setQnaDataList] = useState([]);
-  const[title, setTitle] = useState('')
-  const[content, setContent] = useState('')
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
   useEffect(() => {
     // setDataList(problemdata);
     axios
       .get("http://127.0.0.1:8000/api/v1/qna/questions/")
       .then(function (response) {
-      // console.log(response.data[0]);
-       setQnaDataList(response.data);
+        console.log(response.data);
+        setQnaDataList(response.data);
       })
       .catch(function (error) {
         console.log(error);
       });
-   // setDataList(problemdata);
+    // setDataList(problemdata);
     // .then((res) => res.json())
     // .then((data) => problemdata(data));
   }, []);
 
-
-
   return (
     <Wrapper>
       <Container>
-      <h1 style={{ color: "grey",  marginTop: 30, marginBottom: 30, fontSize: 30, fontWeight: "bold" }}>
+        <h1
+          style={{
+            color: "grey",
+            marginTop: 30,
+            marginBottom: 30,
+            fontSize: 30,
+            fontWeight: "bold",
+          }}
+        >
           QnA
-      </h1>
+        </h1>
       </Container>
       <Container>
         <Button
@@ -88,12 +92,11 @@ function MainCommunity(props) {
         <PostList
           posts={qnaData}
           onClickItem={(item) => {
-            
-            navigate(`/post/${item.id}`, {state : item});
+            navigate(`/post/${item.id}`, { state: item });
           }}
         />
       </Container>
-{/* 
+      {/* 
       <label>
         페이지 당 표시할 게시물 수:&nbsp;
         <select
@@ -106,7 +109,7 @@ function MainCommunity(props) {
           {/* <option value="15">15</option>
                 <option value="50">50</option>
                 <option value="100">100</option> */}
-        {/* </select> */}
+      {/* </select> */}
       {/* </label> */}
     </Wrapper>
   );
