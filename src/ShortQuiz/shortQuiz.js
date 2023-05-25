@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import '../OX_quiz/quiz.css';
+import tino from '../OX_quiz/tino2.png';
 
 function ShortQuizPage() {
   const [problemData, setProblemData] = useState({});
@@ -31,6 +32,10 @@ function ShortQuizPage() {
   };
 
   return (
+    <div>
+    <div className='tino-image'>
+      <img src={tino} className='quiz-tino'/>
+    </div>
     <div className='quiz-container'>
       <div className='qzproblem-container'>
         {problemData && Object.keys(problemData).length > 0 && (
@@ -49,6 +54,7 @@ function ShortQuizPage() {
       <p className='feedback'>
             {feedback}
           </p>
+    </div>
     </div>
   );
 }
