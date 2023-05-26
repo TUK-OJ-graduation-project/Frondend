@@ -5,16 +5,16 @@ import axios from 'axios';
 import AceEditor from 'react-ace';
 import 'ace-builds/src-noconflict/mode-python'; // 자바스크립트에서 파이썬으로 바꿔줌..!
 import 'ace-builds/src-noconflict/theme-monokai';
-import { useParams } from 'react-router-dom';
-// import { response } from 'express'; //express는 Node.js 위에 웹 애플리케이션 구축을 위한 프레임워크(백엔드!!)
-
-export const GlobalStyle = createGlobalStyle`
-  body {
-    margin: 0;
-    background-color: #ffffff;
-    height: 100vh;
-  }
-`;
+import { Link } from "react-router-dom";
+import { BrowserRouter as Router, useParams } from 'react-router-dom';
+import {FaRegLightbulb} from "react-icons/fa";
+// export const GlobalStyle = createGlobalStyle`
+//   body {
+//     margin: 0;
+//     background-color: #ffffff;
+//     height: 100vh;
+//   }
+// `;
 
 const Layout = styled.div`
   flex-direction: row;
@@ -23,6 +23,7 @@ const Layout = styled.div`
   font-size: 20px;
   font-family: sans-serif;
   flex: 1;
+  background-color: #FFFFFF;
 `;
 const SourceCodeContainer = styled.div`
   flex: 3;
@@ -54,24 +55,20 @@ function ProblemInfoComponent({problemId}) {
 
   return (
   <div>
-    {/* {problemData.map(problem => ( */}
     <div key={problemData.id}>
-      <h5>
-        Problem {problemData.id} - {problemData.title}
-      </h5>
-      <p>Level: {problemData.level}</p>
-      <p>Type: {problemData.type}</p>
-      <h5>Description</h5>
-      <p>{problemData.description}</p>
-      <h5>Input</h5>
-      <p>{problemData.input_format}</p>
-      <h5>Output</h5>
-      <p>{problemData.output_format}</p>
-      <h5>Hint</h5>
-      <p>{problemData.hint}</p>
+      <div className='description-container'>
+        <p className='description-text'> {problemData.id}. {problemData.title} </p>
+        <p className='description-text'> {problemData.description}</p>
+      </div>
+      <div className='io-container'>
+        <div className='input-container'>
+          Input<br /> {problemData.input_format}
+        </div>
+        <div className='output-container'>
+          Output<br />  {problemData.output_format}
+        </div>
+      </div>
     </div>
-
-  {/*) )} */}
 </div>
 
   );
@@ -121,7 +118,6 @@ function SourceCodeInputComponent({ problemId, executionResult, setExecutionResu
 
   return (
     <div className="source-code-input">
-      <h4>Source Code</h4>
       <AceEditor
         mode="python" // javascript에서 python으로 바꿈.
         theme="monokai"
@@ -131,9 +127,10 @@ function SourceCodeInputComponent({ problemId, executionResult, setExecutionResu
         editorProps={{ $blockScrolling: true }}
         height="500px"
         width="100%"
-        fontSize={13}
+        // style={{ borderRadius: '30px' }}
+        fontSize={12}
       />
-      <button onClick={handleSourceCodeSubmit}>Submit</button>
+      {/* <button onClick={handleSourceCodeSubmit} className="submit-button">Submit</button> */}
     </div>
   );
 }
@@ -159,23 +156,94 @@ function Editor() {
   const problemId = id; // problemId에 할당
 
   const [executionResult, setExecutionResult] = useState(null);
+  function handleSourceCodeSubmit(code) {
+    alert(code);
+    // Perform submission logic here
+  }
+  const [problemData, setProblemData] = useState([]);
+  const [showHint, setShowHint] = useState(false); // 상태 추가: 힌트 보기 여부
+  const id = useParams().id;
+  useEffect(() => {
+    // GET 요청
+    axios
+      .get(`http://127.0.0.1:8000/api/v1/problems/code/${id}/`)
+      .then(function (response) {
+        console.log(response);
+        setProblemData(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [id]);
+  /*헤더 글씨 만큼 크기 자동 조절 기능*/
+
+  // 힌트 보기 함수
+  function showHintModal() {
+    setShowHint(true);
+  }
+  // 힌트 모달 닫기 함수
+  function closeHintModal() {
+    setShowHint(false);
+  }
 
   return (
     <div className="online-judge-layout">
+      <div className='editor-header'>
+        <div className='editor-header-wrapper'>
+          <div className='editor-header-container1'>
+            LV  {problemData.level} &nbsp;&nbsp;&gt;&nbsp;&nbsp; {problemData.id}. &nbsp;{problemData.title}
+          </div>
+          <button className="hint-button" onClick={showHintModal}>힌트</button>
+        </div>
+      </div>
       <Layout className="editor_container">
         {/* Remove Sidebar from here */}
         <div className="problem_info_container">
           <ProblemInfoComponent problemId={problemId} />
+          <div className='problem_info_container2'>
+          <ProblemInfoComponent />
+          </div>
         </div>
-        <SourceCodeContainer className="source-code-and-execution-result">
+        <SourceCodeContainer className="source-code-and-execution-result" >
           <div className="source-code-container">
             <SourceCodeInputComponent problemId={problemId} executionResult={executionResult} setExecutionResult={setExecutionResult} />
           </div>
           <div className="execute-container">
             <ExecutionResultComponent problemId={problemId} executionResult={executionResult} setExecutionResult={setExecutionResult}/>
+            <SourceCodeInputComponent onSubmit={handleSourceCodeSubmit} />
+          </div>
+          <div className="execute-container">
+            <ExecutionResultComponent className='execute-content'/>
           </div>
         </SourceCodeContainer>
+        {/* 힌트 모달 */}
+        {showHint && (
+          <div className="hint-modal" style={{ zIndex: 1 }}>
+            {/* 힌트 내용 */}
+            <div className="hint-content">
+              <div className="hint-title">
+                <FaRegLightbulb className="hint-icon" />
+                <span className="hint-text">힌트</span>
+              </div>
+              <div className='hint-content2'>
+                <p className='hint-text2'>{problemData.hint}</p>
+              </div>
+            </div>
+            {/* 닫기 버튼 */}
+            <div className='hint-close-button-container'>
+              <button className="hint-close-button" onClick={closeHintModal}>닫기</button>
+            </div>
+          </div>
+        )}
       </Layout>
+      <div className="editor-footer">
+          <div className="button-container">
+            <button onClick={handleSourceCodeSubmit} className="submit-button">제출</button>
+            <button className="execute-button">실행</button>
+          </div>
+        </div>
+
+
     </div>
   );
 }
