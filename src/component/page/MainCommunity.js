@@ -65,7 +65,7 @@ function MainCommunity(props) {
     // setDataList(problemdata);
     // .then((res) => res.json())
     // .then((data) => problemdata(data));
-  }, []);
+  }, [page]); // 'page'페이지가 변경될 대마다 구성 요소가 다시 렌더링되고 백엔드에서 최신 데이터를 가져오도록 종속성이 추가
 
   return (
     <Wrapper>

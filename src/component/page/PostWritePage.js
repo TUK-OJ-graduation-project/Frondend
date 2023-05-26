@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import TextInput from "../ui/TextInput";
+//import TextInput from "../ui/TextInput";
 import Button from "../ui/Button";
 import Page from "./Page.css";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import ReactHtmlParser from "html-react-parser";
+//import ReactHtmlParser from "html-react-parser";
 import axios from "axios";
 
 // onChange={(event, editor)=>{
@@ -113,10 +113,12 @@ function PostWritePage(props) {
       })
       .then(function (response) {
         console.log(response);
-        // setDataList(response.data);
+        alert("질문글이 생성됐습니다.")
+        navigate("/qna"); // '확인' 누르면 질문글 리스트 페이지로 리다이렉션
       })
       .catch(function (error) {
         console.log(error);
+        alert("error: 질문글을 생성할 수 없습니다.")
       });
   };
 
@@ -174,35 +176,12 @@ function PostWritePage(props) {
             console.log("Focus.", editor);
           }}
         />
-        <button className="submit-button" onClick={test}>
+        <button className="submit-button" onClick={test}> 
           <Button title="글 작성하기" />
         </button>
       </Container>
       <div></div>
       <Container></Container>
-      <Container>
-        <PostContainer className="post-container">
-          <div>
-            {/* <img src="./public/profile.png" style={styles.image}></img> */}
-
-            {/* <TitleText>{state.title}</TitleText> */}
-            <TitleText>
-              {viewContent.map((element) => (
-                <div>
-                  {/* <div style={StyleSheet.imageContainer}> */}
-                  {/* <img src={require("./tino.png")} style={styles.image} /> */}
-                  {/* </div> */}
-                  <h2>{element.title}</h2>
-                  <div>
-                    {/* {element.content} */}
-                    {ReactHtmlParser(element.content)}
-                  </div>
-                </div>
-              ))}
-            </TitleText>
-          </div>
-        </PostContainer>
-      </Container>
     </Wrapper>
   );
 }

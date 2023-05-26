@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import CommentList from "../list/CommentList";
@@ -7,10 +7,12 @@ import Button from "../ui/Button";
 import data from "../../data.json";
 import { useLocation } from "react-router";
 import ReactHtmlParser from "html-react-parser";
+import axios from 'axios';
+
 
 const Wrapper = styled.div`
   padding: 16px;
-  width: clac(100% - 32px);
+  width: calc(100% - 32px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,13 +56,10 @@ const CommentLabel = styled.p`
 function PostViewPage(props) {
   const navigate = useNavigate();
   const { postId } = useParams();
-
-  const post = data.find((item) => {
-    return item.id == postId;
-  });
-
+  const [post, setPost] = useState(null);
   const [comment, setComment] = useState("");
   const { state } = useLocation();
+
   const styles = {
     wrapper: {
       margin: 8,
@@ -99,6 +98,52 @@ function PostViewPage(props) {
       fontSize: 16,
     },
   };
+  
+  const fetchPost = async () => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/api/v1/qna/questions/${postId}/`);
+      if (response.status === 200) {
+        setPost(response.data);
+      } else {
+        console.error('Failed to fetch post, response status: ', response.status);
+      } 
+    } catch (error) {
+      console.error('Failed to fetch post: ', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchPost();
+  }, []);
+
+  const addComment = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios.post(`http://127.0.0.1:8000/api/v1/qna/questions/${postId}/answers/`, {
+        answer: comment,
+        question: postId
+      });
+
+      if (response.status === 201) {
+        setComment(''); //댓글 작성 후에 입력부분 다시 새로고침
+        fetchPost();
+      } else {
+        console.error('Failed to create comment, response status: ', response.status);
+      }
+    } catch (error) {
+      console.error('댓글 생성에 실패: ', error);
+      if (error.response) {
+        console.error(error.response.data);
+        console.error(error.response.status);
+        console.error(error.response.headers);
+      } else if (error.request) {
+        console.error(error.request);
+      } else {
+        console.error('Error', error.message);
+      }
+    }
+  };
   return (
     <Wrapper>
       <Container>
@@ -135,28 +180,22 @@ function PostViewPage(props) {
             <div style={styles.contentContainer}>
               <span style={styles.nameText}>이름</span>
             </div>
-            <ContentText>{ReactHtmlParser(state.question)}</ContentText>
+            <ContentText>{post ? ReactHtmlParser(post.question) : '질문글 로딩중....'}</ContentText>
           </div>
         </PostContainer>
+        
+        <CommentLabel>Comment</CommentLabel>
+        {post ? <CommentList comments={post.answers} /> : <p> 댓글 로딩중 ...</p>}
 
-        <CommentLabel>댓글</CommentLabel>
-        <CommentList comments={state.answers} />
-        {/* ---------------- */}
-
-        {/* ------------- */}
-        <TextInput
-          height={40}
-          value={comment}
-          onChange={(event) => {
-            setComment(event.target.value);
-          }}
-        />
-        <Button
-          title="댓글 작성하기"
-          onClick={() => {
-            navigate("/");
-          }}
-        />
+        <form onSubmit={addComment}>
+          <input
+            type="text"
+            value={comment}
+            onChange={e => setComment(e.target.value)}
+            placeholder="답변댓글 작성"
+          />
+        <Button title="댓글 작성" type="submit"/>
+        </form>
       </Container>
     </Wrapper>
   );
