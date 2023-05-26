@@ -32,8 +32,8 @@ const SourceCodeContainer = styled.div`
 function ProblemInfoComponent({problemId}) {
   const [problemData, setProblemData] = useState({});
   useEffect(() => {
-    // GET 요청
-    axios
+    if (problemId !== undefined) {
+       axios
       .get(`http://127.0.0.1:8000/api/v1/problems/code/${problemId}/`)
       .then(response => {
         setProblemData(response.data);
@@ -41,18 +41,8 @@ function ProblemInfoComponent({problemId}) {
       .catch(error => {
         console.error(error);
       });
+    } 
   }, [problemId]);
-    // POST 요청
-    // axios
-    //   .post('http://127.0.0.1:8000/api/v1/problems/', { withCredentials: true })
-    //   .then(function (response) {
-    //     console.log(response);
-    //     setProblemData(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.error(error);
-    //   });
-
   return (
   <div>
     <div key={problemData.id}>
@@ -74,48 +64,13 @@ function ProblemInfoComponent({problemId}) {
   );
 }
 
-function SourceCodeInputComponent({ problemId, executionResult, setExecutionResult }) {
-  const [sourceCode, setSourceCode] = useState('');
-
-  function handleSourceCodeChange(value) {
-    setSourceCode(value);
-  }
-  function handleSourceCodeSubmit() {
-    axios
-    .post('http://127.0.0.1:8000/api/v1/solutions/submit/', {
-      source_code: sourceCode,
-      problem: problemId, //CodingProblem id
-    })
-    .then(response => {
-      console.log('Response:', response);
-      console.log('Execution result:', response.data.execution_result);
-      alert('Source code submitted successfully!');
-
-      // 'long polling(롱 폴링)' 시작
-      const solutionId = response.data.id;
-      const intervalId = setInterval(() => {
-        axios
-        .get(`http://127.0.0.1:8000/api/v1/solutions/submit/${solutionId}/`)
-        .then(response => {
-          console.log('Polling response:', response);
-          const executionResult = response.data.execution_result;
-          if (executionResult) {
-            setExecutionResult(executionResult);
-            clearInterval(intervalId); // Stop polling
-        }
-      })
-      .catch(error => {
-        console.error('An error occurred during polling:', error);
-        clearInterval(intervalId); // Stop polling
-      });
-    }, 2000); // Poll every 2 seconds (2초마다 폴링)
-    })
-    .catch(error => {
-      console.error(error);
-      alert('An error occurred while submitting the source code.');
-    });
-  }
-
+function SourceCodeInputComponent({ 
+  problemId, 
+  executionResult, 
+  setExecutionResult,
+  sourceCode,
+  handleSourceCodeChange
+ }) {
   return (
     <div className="source-code-input">
       <AceEditor
@@ -145,7 +100,7 @@ function ExecutionResultComponent({ problemId, executionResult, setExecutionResu
 
   return (
     <div className="execution-result">
-      <h4>Execution Result</h4>
+      <h4>실행 결과</h4>
       <p>{executionResult}</p>
     </div>
   );
@@ -156,25 +111,62 @@ function Editor() {
   const problemId = id; // problemId에 할당
 
   const [executionResult, setExecutionResult] = useState(null);
-  function handleSourceCodeSubmit(code) {
-    alert(code);
-    // Perform submission logic here
+  const [sourceCode, setSourceCode] = useState('');
+
+  function handleSourceCodeChange(value) {
+    setSourceCode(value);
   }
+
+  function handleSourceCodeSubmit() {
+    axios
+    .post('http://127.0.0.1:8000/api/v1/solutions/submit/', {
+      source_code: sourceCode,
+      problem: problemId, //CodingProblem id
+    })
+    .then(response => {
+      console.log('Response', response);
+      console.log('Execution result:', response.data.execution_result);
+      alert('소스코드가 성공적으로 제출 됐습니다!');
+
+      // 'long polling(롱 폴링)' 시작
+      const solutionId = response.data.id;
+      const intervalId = setInterval(() => {
+        axios
+        .get(`http://127.0.0.1:8000/api/v1/solutions/submit/${solutionId}/`)
+        .then(response => {
+          console.log('Polling response:', response);
+          const executionResult = response.data.execution_result;
+          if (executionResult) {
+            setExecutionResult(executionResult);
+            clearInterval(intervalId); // Stop polling
+          }
+        })
+        .catch(error => {
+          console.error('An error occurred during polling:', error);
+          clearInterval(intervalId); // Stop polling
+        });
+      }, 2000);
+      })
+      .catch(error => {
+        console.error(error);
+        alert('An error occurred while submitting the source code.');
+      });
+    }
+
   const [problemData, setProblemData] = useState([]);
   const [showHint, setShowHint] = useState(false); // 상태 추가: 힌트 보기 여부
-  const id = useParams().id;
   useEffect(() => {
-    // GET 요청
-    axios
-      .get(`http://127.0.0.1:8000/api/v1/problems/code/${id}/`)
-      .then(function (response) {
-        console.log(response);
-        setProblemData(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [id]);
+    if (problemId !== undefined) {
+      axios
+        .get(`http://127.0.0.1:8000/api/v1/problems/code/${problemId}/`)
+        .then(response => {
+          setProblemData(response.data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  }, [problemId]);
   /*헤더 글씨 만큼 크기 자동 조절 기능*/
 
   // 힌트 보기 함수
@@ -197,23 +189,22 @@ function Editor() {
         </div>
       </div>
       <Layout className="editor_container">
-        {/* Remove Sidebar from here */}
         <div className="problem_info_container">
           <ProblemInfoComponent problemId={problemId} />
-          <div className='problem_info_container2'>
-          <ProblemInfoComponent />
-          </div>
         </div>
         <SourceCodeContainer className="source-code-and-execution-result" >
           <div className="source-code-container">
-            <SourceCodeInputComponent problemId={problemId} executionResult={executionResult} setExecutionResult={setExecutionResult} />
+            <SourceCodeInputComponent 
+              problemId={problemId} 
+              executionResult={executionResult} 
+              setExecutionResult={setExecutionResult}
+              handleSourceCodeChange={handleSourceCodeChange}
+              handleSourceCodeSubmit={handleSourceCodeSubmit}
+            />
           </div>
           <div className="execute-container">
             <ExecutionResultComponent problemId={problemId} executionResult={executionResult} setExecutionResult={setExecutionResult}/>
-            <SourceCodeInputComponent onSubmit={handleSourceCodeSubmit} />
-          </div>
-          <div className="execute-container">
-            <ExecutionResultComponent className='execute-content'/>
+            {/* <SourceCodeInputComponent onSubmit={handleSourceCodeSubmit} /> */}
           </div>
         </SourceCodeContainer>
         {/* 힌트 모달 */}
@@ -221,10 +212,8 @@ function Editor() {
           <div className="hint-modal" style={{ zIndex: 1 }}>
             {/* 힌트 내용 */}
             <div className="hint-content">
-              <div className="hint-title">
-                <FaRegLightbulb className="hint-icon" />
-                <span className="hint-text">힌트</span>
-              </div>
+              <FaRegLightbulb className="hint-icon" />
+              <span className="hint-text">힌트</span>
               <div className='hint-content2'>
                 <p className='hint-text2'>{problemData.hint}</p>
               </div>
@@ -239,13 +228,10 @@ function Editor() {
       <div className="editor-footer">
           <div className="button-container">
             <button onClick={handleSourceCodeSubmit} className="submit-button">제출</button>
-            <button className="execute-button">실행</button>
+            {/* <button className="execute-button">실행</button> */}
           </div>
-        </div>
-
-
+      </div>
     </div>
   );
 }
-
 export default Editor;
