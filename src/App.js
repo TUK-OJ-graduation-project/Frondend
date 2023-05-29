@@ -17,8 +17,7 @@ import Main from "./Main/main";
 import QuizPage from "./OX_quiz/QuizPage";
 import ShortQuizPage from "./ShortQuiz/shortQuiz";
 import ProblemForm from "./Manage_problem/create_problem";
-import LoginHome from './Login/LoginHome';
-
+import LoginHome from "./Login/LoginHome";
 
 const MainTitleText = styled.p`
   font-size: 24px;
@@ -40,8 +39,8 @@ class App extends React.Component {
           {/* <h1> COMMUNITY </h1> */}
           {/* <Route path="/home" component={Home} /> */}
           <Route path="/" element={<Main />} />
-          <Route path="/loginhome" element={<LoginHome />}/>
-          <Route path="/main_qna/:id" element={<PostViewPage />} />
+          <Route path="/loginhome" element={<LoginHome />} />
+          <Route path="/qna/:id" element={<PostViewPage />} />
           {/* <Route path="/login" element={<LoginComponent />} />
           {state.user.isLogin ? <MyPage /> : <LoginComponent />} */}
           <Route path="/problem/:id" element={<Editor />} />
