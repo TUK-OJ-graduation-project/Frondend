@@ -1,5 +1,5 @@
-import React from 'react'
-import {CgProfile} from 'react-icons/cg'
+import React from "react";
+import { CgProfile } from "react-icons/cg";
 
 export const links = [
   // {
@@ -10,17 +10,17 @@ export const links = [
   // },
   {
     id: 2,
-    url: '/qna',
-    text: 'QnA',
-    className: 'qna-link',
+    url: "/qna",
+    text: "QnA",
+    className: "qna-link",
   },
   {
     id: 3,
-    url: '/Problemlist',
-    text: 'Problem',
-    className : 'problemlist-link',
-  }
-]
+    url: "/Problemlist",
+    text: "Problem",
+    className: "problemlist-link",
+  },
+];
 
 export const social = [
   {
@@ -29,21 +29,20 @@ export const social = [
   },
   {
     id: 2,
-    url: '/loginhome',
-    text: 'Login',
-    className : 'login-link',
-
+    url: "/loginhome",
+    text: "Login",
+    className: "login-link",
   },
   {
     id: 3,
-    url: '/logout',
-    text: 'LogOut',
-    className : 'logout-link',
+    url: "/logout",
+    text: "LogOut",
+    className: "logout-link",
   },
   {
     id: 4,
-    url: '/create_problem',
-    text: 'Manage',
-    className : 'management-link',
-  }
-]
+    url: "/Manage",
+    text: "Manage",
+    className: "management-link",
+  },
+];

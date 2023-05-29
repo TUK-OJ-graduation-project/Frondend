@@ -18,6 +18,9 @@ import QuizPage from "./OX_quiz/QuizPage";
 import ShortQuizPage from "./ShortQuiz/shortQuiz";
 import ProblemForm from "./Manage_problem/create_problem";
 import LoginHome from "./Login/LoginHome";
+import Manage from "./Manage_problem/manage";
+import DeleteForm from "./Manage_problem/delete_problem";
+import ProblemEditForm from "./Manage_problem/edit_problem";
 
 const MainTitleText = styled.p`
   font-size: 24px;
@@ -48,7 +51,10 @@ class App extends React.Component {
           <Route path="/Problemlist" element={<Problemlist />} />
           <Route path="/oxquiz/:id" element={<QuizPage />} />
           <Route path="/shortquiz/:id" element={<ShortQuizPage />} />
+          <Route path="/Manage" element={<Manage />} />
           <Route path="/create_problem" element={<ProblemForm />} />
+          <Route path="/delete_problem" element={<DeleteForm />} />
+          <Route path="/edit_problem/:id" element={<ProblemEditForm />} />
           {/* <Route path="/Community" element={<Community/>}/> */}
           <Route path="/qna" element={<MainCommunity />} />
           <Route path="post-write" element={<PostWritePage />} />

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./problem.css";
 
-function ProblemForm() {
+function ProblemEditForm() {
+  const { id } = useParams();
   const navigate = useNavigate();
+
   const [problem, setProblem] = useState({
     level: "",
     type: "",
@@ -16,7 +18,21 @@ function ProblemForm() {
     language: [],
   });
 
-  const [selectedLevel, setSelectedLevel] = useState("");
+  useEffect(() => {
+    const fetchProblem = async () => {
+      try {
+        const response = await axios.get(
+          `http://127.0.0.1:8000/api/v1/problems/code/${id}/`
+        );
+        const problemData = response.data;
+        setProblem(problemData);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchProblem();
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,7 +40,6 @@ function ProblemForm() {
       ...prevState,
       [name]: value,
     }));
-    //setSelectedLevel(e.target.value);
   };
 
   const handleCheckboxChange = (e) => {
@@ -42,18 +57,9 @@ function ProblemForm() {
     setProblem((prevState) => ({ ...prevState, language: currentLanguages }));
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setProblem({ ...problem, [name]: value });
-  };
-
   const handleSubmit = async (e) => {
-    // level 상태값을 체크하고, null이면 빈 문자열로 초기화
-    // if (problem.level === null) {
-    //   setProblem((prevState) => ({ ...prevState, level: "" }));
-    // }
     e.preventDefault();
-    const newProblem = {
+    const updatedProblem = {
       level: problem.level,
       type: problem.type,
       title: problem.title,
@@ -64,19 +70,22 @@ function ProblemForm() {
       language: problem.language.toString(),
     };
     try {
-      await axios.post(`http://127.0.0.1:8000/api/v1/problems/`, newProblem);
-      alert("문제가 성공적으로 등록되었습니다!");
+      await axios.put(
+        `http://127.0.0.1:8000/api/v1/problems/code/${id}/`,
+        updatedProblem
+      );
+      alert("문제가 성공적으로 수정되었습니다!");
       navigate("/manage"); // manage 페이지로 이동
     } catch (error) {
       console.log(error);
-      alert("문제 등록에 실패했습니다.");
+      alert("문제 수정에 실패했습니다.");
     }
   };
 
   return (
     <div className="container">
       <form method="post" onSubmit={handleSubmit}>
-        <h3>Add Problem</h3>
+        <h3>Edit Problem</h3>
         <br />
         <div className="container2">
           <div>
@@ -87,7 +96,7 @@ function ProblemForm() {
               id="level"
               name="level"
               onChange={handleChange}
-              defaultValue=""
+              value={problem.level}
               required
             >
               <option value="" disabled hidden>
@@ -211,7 +220,7 @@ function ProblemForm() {
           <select
             id="type"
             name="type"
-            defaultValue=""
+            value={problem.type}
             onChange={handleChange}
             required
           >
@@ -224,8 +233,8 @@ function ProblemForm() {
           </select>
         </div>
         <div className="btn">
-          <button onClick={handleSubmit} type="button" className="submit-btn">
-            Save
+          <button type="submit" className="submit-btn">
+            수정
           </button>
         </div>
       </form>
@@ -233,4 +242,4 @@ function ProblemForm() {
   );
 }
 
-export default ProblemForm;
+export default ProblemEditForm;

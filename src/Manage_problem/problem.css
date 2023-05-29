@@ -380,3 +380,59 @@ width: 30%;
 min-height: 100px; /* 최소 높이를 지정합니다. 필요에 따라 조절해주세요. */
 min-width: 100px; /* 최소 높이를 지정합니다. 필요에 따라 조절해주세요. */
   }
+  .create-problem-btn {
+    display: inline-block;
+    color: #fff;
+    background-color: #131F89;
+    border: none;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .create-problem-btn:hover {
+    background-color: hsl(205, 89%, 70%);
+  }
+
+  .create-problem-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(74, 156, 219, 0.4);
+  }
+
+  .create-problem-btn:active {
+    transform: translateY(1px);
+  }
+  .edit-btn,
+  .delete-btn {
+    display: inline-block;
+    color: #fff;
+    background-color: #131F89;
+    border: none;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .edit-btn:hover,
+  .delete-btn:hover {
+    background-color: hsl(205, 89%, 70%);
+  }
+
+  .edit-btn:focus,
+  .delete-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.4);
+  }
+
+  .edit-btn:active,
+  .delete-btn:active {
+    transform: translateY(1px);
+  }
