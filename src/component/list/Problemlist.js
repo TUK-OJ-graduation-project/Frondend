@@ -70,7 +70,28 @@ const Container = styled.div`
 `;
 const ProblemList = (props) => {
 
+  // 문제유형의 select
+  const[problem, setProblem] = useState("문제유형");
   
+  const handlechangeproblem = (event) => {
+    setProblem(event.target.value);
+  };
+
+  // 레벨의 select
+  const[level, setLevel] = useState("레벨");
+
+  const handlechangelevel = (event) => {
+    setLevel(event.target.value);
+  };
+
+  // 언어의 select
+  const[lan, setLan] = useState("언어");
+
+  const handlechangelan = (event) => {
+    setLan(event.target.value);
+  };
+
+  // const [selectedOption, setSelectedOption] = useState(null);
   const [dataList, setDataList] = useState([]);
   const navigate = useNavigate();
 
@@ -114,30 +135,23 @@ const ProblemList = (props) => {
           PROBLEM LIST
         </h1>
       </div>
-      <select
-        style={{
-          width: 80,
-          height: 30,
-          float: "right",
-          marginRight: 150,
-          fontSize: 15,
-        }}
-        type="String"
-        value={limit}
-        onChange={({ target: { value } }) => setLimit(String(value))}
-      >
+        <div>
+          {/* 교재보고 셀렉트 */}
+          <label  style={{borderRadius: 30}}>
+            <select style={{textAlign: "center",width: 100, height: 30, float: "right", fontSize: 15}} value={problem} onChange={handlechangeproblem}>
+            <option value="">전체(유형)</option>
         <option value="code">code</option>
         <option value="blank">blank</option>
         <option value="select">select</option>
       </select>
-      {/* <View style={{flex: 1, float: "right"}}>
-            <Dropdown2 selected={selected} setSelected={setSelected}/>
-      </View> */}
+          </label>
+
+        </div>
       <div
         style={{
           background: "#000066",
-          marginLeft: 150,
-          marginRight: 150,
+          // marginLeft: 150,
+          // marginRight: 150,
           marginTop: 100,
           borderRadius: 10,
         }}
@@ -146,37 +160,36 @@ const ProblemList = (props) => {
           headersName={[
             "ID",
             "문제명",
-            <select
-              style={{ textAlign: "center", fontSize: 15, height: 30, color: "black" }}
-              type="String"
-              value={limit}
-              onChange={({ target: { value } }) => setLimit(String(value))}
-            >
+            // borderRadius가 먹히지 않음
+            <div  style={{borderRadius: 30}}>  
+            {/* 교재보고 셀렉트 */}
+            <label> 
+              <select style={{textAlign: "center", width : 80, height : 30, fontSize: 15, color: "black"}} value={level} onChange={handlechangelevel}>
+              <option style={{ color : "grey"}} value="">레벨</option>
               <option value="lv 1">lv 1</option>
               <option value="lv 2">lv 2</option>
               <option value="lv 3">lv 3</option>
               <option value="lv 4">lv 4</option>
               <option value="lv 5">lv 5</option>
-            </select>,
-            <select
-              style={{ textAlign: "center", fontSize: 15, height: 30, color: "black" }}
-              type="String"
-              value={limit}
-              onChange={({ target: { value } }) => setLimit(String(value))}
-            >
+              </select>
+            </label>
+          </div>,
+            <div style={{borderRadius: 30}}>
+            {/* 교재보고 셀렉트 */}
+            <label>
+              <select style={{textAlign: "center", width : 80, height : 30, fontSize: 15, color: "black"}} value={lan} onChange={handlechangelan}>
+              <option style={{ color : "light-grey"}} value="">언어</option>
               <option value="c">c</option>
               <option value="c++">c++</option>
               <option value="python">python</option>
               <option value="java">java</option>
-            </select>,
-
-            // <Dropdown  selected={selected} setSelected={setSelected}/>,
-            // <Dropdown1 selected={selected} setSelected={setSelected}/>
+              </select>
+            </label>
+          </div>
           ]}
         >
-          {/* //여기서부터 되나 안되나 확인 */}
 
-          
+          {/* problem의 데이터 받아와주는 부분 */}
           {
             dataList.map(problem => (
               <CommonTableRow key={problem.id} problemType={problem.type}>
@@ -201,32 +214,17 @@ const ProblemList = (props) => {
       </main> */}
         </CommonTable>
       </div>
-      {/* <label>
-          페이지 당 표시할 게시물 수:&nbsp;
-          <select
-            type="number"
-            value={limit}
-            onChange={({ target: { value } }) => setLimit(Number(value))}
-          >
-            <option value="10">10</option>
-            <option value="12">12</option>
-            <option value="20">20</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-          </select>
-        </label> */}
 
-      {/* ----------------------------- */}
-
-      <footer>
+      <div>
         <Pagination
-          total={problemdata.length}
+          total={dataList.length}
           // total={setDataList}
           limit={limit}
           page={page}
           setPage={setPage}
         />
-      </footer>
+        </div>
+
       </Container>
       </Wrapper>
     </>

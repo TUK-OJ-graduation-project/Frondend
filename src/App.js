@@ -9,6 +9,7 @@ import Problemlist from "./component/list/Problemlist";
 import Community from "./component/page/Community";
 import Button from "./component/ui/Button";
 
+import BoardUpdate from "./component/page/routes/BoardUpdate";
 import Editor from "./Editor/editor";
 import QnA from "./QnA";
 import Footer from "./footer/footer";
@@ -59,6 +60,9 @@ class App extends React.Component {
           <Route path="/qna" element={<MainCommunity />} />
           <Route path="post-write" element={<PostWritePage />} />
           <Route path="post/:postId" element={<PostViewPage />} />
+          {/* 수정 위한 Route */}
+            <Route path="/update/:postId" element={<BoardUpdate/>}/>
+            {/* <Route path="/update/${postId}/" element={<BoardUpdate/>}/> */}
         </Routes>
         <Footer />
       </Router>

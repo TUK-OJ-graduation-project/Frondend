@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Route, Routes} from "react-router-dom";
 import styled from "styled-components";
 import PostList from "../list/Postlist";
 // import MainCommunity from "../page/MainCommunity";
@@ -10,6 +10,8 @@ import data from "../../data.json";
 import Pagination from "react-js-pagination";
 import "./Paging.css";
 import axios from "axios";
+//수정위한
+import BoardUpdate from "./routes/BoardUpdate";
 //게시판에 글 입력받기 위한 라우터들
 // import { useDispatch } from 'react-redux';
 // import { dataSave } from '@modules/boardReducer';
@@ -111,6 +113,12 @@ function MainCommunity(props) {
                 <option value="100">100</option> */}
       {/* </select> */}
       {/* </label> */}
+
+      {/* 수정 위한 Route */}
+      <Routes>
+        {/* <Route path="/update/:postId" element={<BoardUpdate/>}/> */}
+        <Route path="/update/${postId}/" element={<BoardUpdate/>}/>
+      </Routes>
     </Wrapper>
   );
 }

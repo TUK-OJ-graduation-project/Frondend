@@ -60,6 +60,19 @@ function PostViewPage(props) {
   const [comment, setComment] = useState("");
   const { state } = useLocation();
 
+  //게시글 수정 
+  const moveToUpdate = () => {
+    navigate('/update/' + post);
+  };
+ // 게시글 삭제
+ const deleteBoard = async () => {
+  if (window.confirm('게시글을 삭제하시겠습니까?')){
+    await axios.delete(`http://127.0.0.1:8000/api/v1/qna/questions/${postId}/`).then((res) => {
+      alert('삭제되었습니다.');
+      navigate('/qna');
+    })
+  }
+}
   const styles = {
     wrapper: {
       margin: 8,
@@ -184,6 +197,15 @@ function PostViewPage(props) {
           </div>
         </PostContainer>
         
+          {/* 이쯤에 삭제 수정 버튼 넣어주면 될것 같음  */}
+          <Button
+          title="삭제"
+          onClick={deleteBoard}
+        />
+         <Button
+          title="수정"
+          onClick={moveToUpdate}
+        />
         <CommentLabel>Comment</CommentLabel>
         {post ? <CommentList comments={post.answers} /> : <p> 댓글 로딩중 ...</p>}
 
