@@ -176,9 +176,12 @@ function PostWritePage(props) {
             console.log("Focus.", editor);
           }}
         />
-        <button className="submit-button" onClick={test}> 
-          <Button title="글 작성하기" />
-        </button>
+        {/* <button className="submit-button" onClick={test}>  */}
+          <Button 
+          className="submit-button"
+          onClick={test}
+          title="글 작성하기" />
+        {/* </button> */}
       </Container>
       <div></div>
       <Container></Container>

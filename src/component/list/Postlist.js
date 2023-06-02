@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import PostListItem from "./PostListItem";
+import { MdPodcasts } from "react-icons/md";
 
 const Wrapper = styled.div`
     display: flex;

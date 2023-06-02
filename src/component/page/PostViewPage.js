@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import styled from "styled-components";
 import CommentList from "../list/CommentList";
 import TextInput from "../ui/CommentInput";
@@ -62,7 +62,7 @@ function PostViewPage(props) {
 
   //게시글 수정 
   const moveToUpdate = () => {
-    navigate('/update/' + post);
+    navigate('/update/' + postId);
   };
  // 게시글 삭제
  const deleteBoard = async () => {
@@ -202,10 +202,15 @@ function PostViewPage(props) {
           title="삭제"
           onClick={deleteBoard}
         />
-         <Button
+         {/* <Button
           title="수정"
           onClick={moveToUpdate}
-        />
+        /> */}
+        <Link to={`/update/${postId}`}>
+        <Button
+          title="수정"
+          onClick={moveToUpdate}/>
+        </Link>
         <CommentLabel>Comment</CommentLabel>
         {post ? <CommentList comments={post.answers} /> : <p> 댓글 로딩중 ...</p>}
 

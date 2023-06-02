@@ -44,7 +44,7 @@ class App extends React.Component {
           {/* <Route path="/home" component={Home} /> */}
           <Route path="/" element={<Main />} />
           <Route path="/loginhome" element={<LoginHome />} />
-          <Route path="/qna/:id" element={<PostViewPage />} />
+          {/* <Route path="/qna/:id" element={<PostViewPage />} /> */}
           {/* <Route path="/login" element={<LoginComponent />} />
           {state.user.isLogin ? <MyPage /> : <LoginComponent />} */}
           <Route path="/problem/:id" element={<Editor />} />
@@ -61,7 +61,7 @@ class App extends React.Component {
           <Route path="post-write" element={<PostWritePage />} />
           <Route path="post/:postId" element={<PostViewPage />} />
           {/* 수정 위한 Route */}
-            <Route path="/update/:postId" element={<BoardUpdate/>}/>
+            <Route path="/update/:postid" element={<BoardUpdate/>}/>
             {/* <Route path="/update/${postId}/" element={<BoardUpdate/>}/> */}
         </Routes>
         <Footer />

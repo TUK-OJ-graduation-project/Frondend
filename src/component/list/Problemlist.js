@@ -10,47 +10,6 @@ import problemdata from "../../problemdata";
 import styled from "styled-components";
 import Pagination from "../../Pagination";
 import PostList from "./Postlist";
-// import Pagination from 'react-js-pagination';
-
-// const Container = styled.div`
-//   width: 100%;
-//   max-width: 720px;
-//   align-content: center;
-//   & > * {
-//     :not(:last-child) {
-//       margin-bottom: 16px;
-//     }
-//   }
-// `;
-// const Wrapper = styled.div`
-//     width: calc(100% - 32px);
-//     padding: 16px;
-//     display: flex;
-//     flex-direction: column;
-//     align-items: flex-start;
-//     justify-content: center;
-//     border: 1px solid grey;
-//     border-radius: 8px;
-//     background: lightgrey;
-//     cursor: pointer;
-//     :hover {
-//         background: grey;
-//     }
-// `;
-
-// const Wrapper = styled.div`
-//     display: flex;
-//     flex-direction: column;
-//     align-items: flex-start;
-//     justify-content: center;
-
-//     & > * {
-//         :not(:last-child){
-//             margin-bottom: 16px;
-//         }
-//     }
-// `;
-
 const Wrapper = styled.div`
   padding: 16px;
   width: calc(100% - 32px);
@@ -90,7 +49,12 @@ const ProblemList = (props) => {
   const handlechangelan = (event) => {
     setLan(event.target.value);
   };
-
+    
+  //newDropdown
+  const [Problemlist, setPosts] = useState([]);
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
   // const [selectedOption, setSelectedOption] = useState(null);
   const [dataList, setDataList] = useState([]);
   const navigate = useNavigate();
@@ -104,8 +68,10 @@ const ProblemList = (props) => {
     axios
       .get("http://127.0.0.1:8000/api/v1/problems/list/")
       .then(function (response) {
+        // const slicedData = response.data.slice(offset, offset + limit);
         console.log(response)
         setDataList(response.data);
+        // setDataList(slicedData);
       })
       .catch(function (error) {
         console.log(error);
@@ -115,11 +81,9 @@ const ProblemList = (props) => {
     // .then((data) => problemdata(data));
   }, []);
 
-  //newDropdown
-  const [Problemlist, setPosts] = useState([]);
-  const [limit, setLimit] = useState(10);
-  const [page, setPage] = useState(1);
-  const offset = (page - 1) * limit;
+  const slicedData = dataList.slice(offset, offset + limit);
+  
+
   //dropdown
   const [view, setView] = useState(false);
   const [selected, setSelected] = useState("");
@@ -199,25 +163,13 @@ const ProblemList = (props) => {
               </CommonTableRow>
             ))
           }
-
-
-          {/* ------------------------- */}
-          {/* <main>
-        {problemdata.slice(offset, offset + limit).map(({ id, title, level }) => (
-          <article key={id}>
-            <CommonTableColumn>{id} </CommonTableColumn>
-            <CommonTableColumn>{title} </CommonTableColumn>
-            <CommonTableColumn>{level} </CommonTableColumn>
-          </article>
-            
-        ))}
-      </main> */}
         </CommonTable>
       </div>
 
       <div>
         <Pagination
           total={dataList.length}
+          // total={response.data.length}
           // total={setDataList}
           limit={limit}
           page={page}
