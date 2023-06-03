@@ -47,17 +47,13 @@ function MainCommunity(props) {
   const { postId } = useParams();
 
   const [qnaData, setQnaDataList] = useState([]);
-  // const [dataList, setDataList] = useState([]);
 
   useEffect(() => {
-    // setDataList(problemdata);
     axios
       .get("http://127.0.0.1:8000/api/v1/qna/questions/")
       .then(function (response) {
         console.log(response.data);
-        // const slicedData = response.data.slice(offset, offset + limit);
         setQnaDataList(response.data);
-        // setQnaDataList(slicedData);
       })
       .catch(function (error) {
         console.log(error);

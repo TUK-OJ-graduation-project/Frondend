@@ -79,7 +79,7 @@ const ProblemList = (props) => {
    // setDataList(problemdata);
     // .then((res) => res.json())
     // .then((data) => problemdata(data));
-  }, []);
+  }, [page]);
 
   const slicedData = dataList.slice(offset, offset + limit);
   
@@ -155,7 +155,14 @@ const ProblemList = (props) => {
 
           {/* problem의 데이터 받아와주는 부분 */}
           {
-            dataList.map(problem => (
+            // dataList.map(problem => (
+            //   <CommonTableRow key={problem.id} problemType={problem.type}>
+            //     <CommonTableColumn>{problem.id}</CommonTableColumn>
+            //     <CommonTableColumn>{problem.title}</CommonTableColumn>
+            //     <CommonTableColumn>{problem.type}</CommonTableColumn>
+            //   </CommonTableRow>
+            // ))
+            slicedData.map(problem => (
               <CommonTableRow key={problem.id} problemType={problem.type}>
                 <CommonTableColumn>{problem.id}</CommonTableColumn>
                 <CommonTableColumn>{problem.title}</CommonTableColumn>

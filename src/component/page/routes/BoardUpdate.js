@@ -6,6 +6,7 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Button from "../../ui/Button";
 import axios from 'axios';
 import QnA from '../../../QnA';
+
 const Wrapper = styled.div`
   padding: 16px;
   width: calc(100% - 50px);
@@ -68,7 +69,7 @@ const BoardUpdate = () => {
     const navigate = useNavigate();
     const { postId } = useParams(); // /update/:postid와 동일한 변수명으로 데이터를 꺼낼 수 있습니다.
    
-    const [postContent, setpostContent] = useState({
+    const [postContent, setPostContent] = useState({
         title: "",
         question: "",
       });
@@ -80,7 +81,7 @@ const BoardUpdate = () => {
               `http://127.0.0.1:8000/api/v1/qna/questions/${postId}/`
             );
             const postData = response.data;
-            setpostContent(postData);
+            setPostContent(postData);
           } catch (error) {
             console.log(error);
           }
@@ -91,7 +92,7 @@ const BoardUpdate = () => {
     
       const handleChange = (e) => {
         const { name, value } = e.target;
-        setpostContent((prevState) => ({
+        setPostContent((prevState) => ({
           ...prevState,
           [name]: value,
         }));
@@ -116,9 +117,14 @@ const BoardUpdate = () => {
       };
 
       const updateBoard = async () => {
-        await axios.patch(`http://127.0.0.1:8000/api/v1/qna/questions/${postId}/`, QnA).then((res) => {
+        await axios.patch(`http://127.0.0.1:8000/api/v1/qna/questions/${postId}/`, postContent).then((res) => {
           alert('수정되었습니다.');
-          navigate('/post/' + postId);
+        //   navigate('/post/' + postId);
+          navigate(`/post/${postId}`);
+      })
+      .catch((error) => {
+        console.log(error);
+        alert('수정 실패');
         });
       };
     
@@ -165,22 +171,27 @@ const BoardUpdate = () => {
             className="title-input"
             type="text"
             placeholder="  제목"
-            onChange={handleChange}
+            // onChange={handleChange}
+            onChange={(e) =>
+             setPostContent({ ...postContent, title: e.target.value})
+            }
+            value={postContent.title}
             required
             name="title"
             />
             <CKEditor
             editor={ClassicEditor}
+            data={postContent.question} //기존의 글 불러오게끔
             // data="여기 입력해줘여"
             onReady={(editor) => {}}
             onChange={(event, editor) => {
                 const data = editor.getData();
-                console.log({ event, editor, data });
-                setpostContent({
+                // console.log({ event, editor, data });
+                setPostContent({
                 ...postContent,
                 question: data,
                 });
-                console.log(postContent);
+                // console.log(postContent);
             }}
             onBlur={(event, editor) => {
                 console.log("Blur.", editor);
