@@ -79,9 +79,14 @@ const BoardUpdate = () => {
           try {
             const response = await axios.get(
               `http://127.0.0.1:8000/api/v1/qna/questions/${postId}/`
+            //   `http://127.0.0.1:8000/api/v1/post/update/${postId}/`
             );
             const postData = response.data;
-            setPostContent(postData);
+            // setPostContent(postData);
+            setPostContent({
+                title: postData.title,
+                question: postData.question,
+            })
           } catch (error) {
             console.log(error);
           }
@@ -95,6 +100,8 @@ const BoardUpdate = () => {
         setPostContent((prevState) => ({
           ...prevState,
           [name]: value,
+          //밑에 추가해줌
+          question: postContent.data,
         }));
       };
     const handleSubmit = async (e) => {
@@ -105,7 +112,8 @@ const BoardUpdate = () => {
         };
         try {
           await axios.put(
-            `http://127.0.0.1:8000/api/v1/qna/questions/${postId}/`,
+            // `http://127.0.0.1:8000/api/v1/qna/questions/${postId}/`,
+            `http://127.0.0.1:8000/api/v1/qna/questions/update/${postId}/`,
             updatedPost
           );
           alert("게시글 수정 성공");
@@ -116,17 +124,17 @@ const BoardUpdate = () => {
         }
       };
 
-      const updateBoard = async () => {
-        await axios.patch(`http://127.0.0.1:8000/api/v1/qna/questions/${postId}/`, postContent).then((res) => {
-          alert('수정되었습니다.');
-        //   navigate('/post/' + postId);
-          navigate(`/post/${postId}`);
-      })
-      .catch((error) => {
-        console.log(error);
-        alert('수정 실패');
-        });
-      };
+    //   const updateBoard = async () => {
+    //     await axios.patch(`http://127.0.0.1:8000/api/v1/qna/questions/${postId}/`, postContent).then((res) => {
+    //       alert('수정되었습니다.');
+    //     //   navigate('/post/' + postId);
+    //       navigate(`/post/${postId}`);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //     alert('수정 실패');
+    //     });
+    //   };
     
       const backToDetail = () => {
         navigate('/post/' + postId);
@@ -171,10 +179,10 @@ const BoardUpdate = () => {
             className="title-input"
             type="text"
             placeholder="  제목"
-            // onChange={handleChange}
-            onChange={(e) =>
-             setPostContent({ ...postContent, title: e.target.value})
-            }
+            onChange={handleChange}
+            // onChange={(e) =>
+            //  handleChange({ ...postContent, title: e.target.value})
+            // }
             value={postContent.title}
             required
             name="title"
@@ -184,15 +192,14 @@ const BoardUpdate = () => {
             data={postContent.question} //기존의 글 불러오게끔
             // data="여기 입력해줘여"
             onReady={(editor) => {}}
-            onChange={(event, editor) => {
-                const data = editor.getData();
-                // console.log({ event, editor, data });
-                setPostContent({
-                ...postContent,
-                question: data,
-                });
-                // console.log(postContent);
-            }}
+            // onChange={(event, editor) => {
+            //     const data = editor.getData();
+            //     setPostContent({
+            //     ...postContent,
+            //     question: data,
+            //     });
+            // }}
+            onChange={handleChange}
             onBlur={(event, editor) => {
                 console.log("Blur.", editor);
             }}
@@ -206,8 +213,9 @@ const BoardUpdate = () => {
             </button> */}
             <br />
             <div>
-            <Button title="수정" onClick={updateBoard}/>
-            <Button title="취소" onClick={backToDetail}/>
+            {/* <Button title="수정" onClick={updateBoard}/>
+            <Button title="취소" onClick={backToDetail}/> */}
+                <Button type="submit" className="submit-btn" title="수정"/>
             </div>
         </Container>
         <div></div>

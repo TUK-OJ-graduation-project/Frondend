@@ -9,16 +9,6 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 //import ReactHtmlParser from "html-react-parser";
 import axios from "axios";
 
-// onChange={(event, editor)=>{
-//     const data = editor.getData();
-//     console.log({ event, editor, data});
-//     setpostContent({
-//         ..postContent,
-//         content: data
-//     })
-//     console.log(postContent)
-// }}
-
 const Wrapper = styled.div`
   padding: 16px;
   width: calc(100% - 50px);
@@ -96,10 +86,6 @@ function PostWritePage(props) {
       fontSize: 16,
     },
   };
-  // const [postTitle, setpostTitle] = useState({
-  //     postTitle: ``,
-  //     postContent: ``
-  // });
   const [postContent, setpostContent] = useState({
     title: "",
     question: "",
@@ -122,9 +108,6 @@ function PostWritePage(props) {
       });
   };
 
-  // const [postTitle, postContent] = useState({
-
-  // })
   //적힌 내용들 저장해주는 state => 화면에 보여주려고!
   const [viewContent, setViewContent] = useState([]);
 
@@ -176,12 +159,10 @@ function PostWritePage(props) {
             console.log("Focus.", editor);
           }}
         />
-        {/* <button className="submit-button" onClick={test}>  */}
           <Button 
           className="submit-button"
           onClick={test}
           title="글 작성하기" />
-        {/* </button> */}
       </Container>
       <div></div>
       <Container></Container>

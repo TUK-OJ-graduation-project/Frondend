@@ -22,6 +22,8 @@ import LoginHome from "./Login/LoginHome";
 import Manage from "./Manage_problem/manage";
 import DeleteForm from "./Manage_problem/delete_problem";
 import ProblemEditForm from "./Manage_problem/edit_problem";
+import PostEditPage from "./component/page/PostEditPage";
+
 
 const MainTitleText = styled.p`
   font-size: 24px;
@@ -61,8 +63,8 @@ class App extends React.Component {
           <Route path="post-write" element={<PostWritePage />} />
           <Route path="post/:postId" element={<PostViewPage />} />
           {/* 수정 위한 Route */}
-            <Route path="/update/:postid" element={<BoardUpdate/>}/>
-            {/* <Route path="/update/${postId}/" element={<BoardUpdate/>}/> */}
+          {/* <Route path="/update/:postId" component={PostEditPage}/> */}
+          <Route path="/update/:postId" element={<PostEditPage />}/>
         </Routes>
         <Footer />
       </Router>
