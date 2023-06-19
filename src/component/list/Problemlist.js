@@ -75,11 +75,11 @@ const ProblemList = () => {
     if (problem === "" && level === "") {
       return true;
     } else if (problem !== "" && level === "") {
-      return problemItem.type === problem && problemItem.level !== "select" && problemItem.type !== "";
+      return problemItem.type === problem && problemItem.level !== "select" && problemItem.type !== "O/X";
     } else if (problem === "" && level !== "") {
-      return problemItem.level === level && problemItem.type !== "select" && problemItem.type !== "";
+      return problemItem.level === level && problemItem.type !== "select" && problemItem.type !== "O/X";
     } else {
-      return problemItem.type === problem && problemItem.level === level && problemItem.type !== "select" && problemItem.level !== "select" && problemItem.type !== "";
+      return problemItem.type === problem && problemItem.level === level && problemItem.type !== "select" && problemItem.level !== "select" && problemItem.type !== "blank";
     }
   });
 
@@ -104,6 +104,20 @@ const ProblemList = () => {
               <option value="select">select</option>
             </select>
           </label>
+          <label style={{ borderRadius: 30 }}>
+            <select
+              style={{ textAlign: "center", width: 100, height: 30, float: "right", fontSize: 15 }}
+              value={level}
+              onChange={handlechangelevel}
+            >
+              <option value="">전체(레벨)</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </label>
         </div>
         <div
           style={{
@@ -112,21 +126,7 @@ const ProblemList = () => {
             borderRadius: 10,
           }}
         >
-          <CommonTable headersName={["ID", "문제명", 
-              <div  style={{borderRadius: 30}}>  
-              {/* 교재보고 셀렉트 */}
-              <label> 
-                <select style={{textAlign: "center", width : 80, height : 30, fontSize: 15, color: "black"}} value={level} onChange={handlechangelevel}>
-                <option style={{ color : "grey"}} value="">레벨</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                </select>
-              </label>
-            </div>
-          , "유형"]}>
+          <CommonTable headersName={["ID", "문제명", "레벨", "유형"]}>
             {slicedData.map((problem) => (
               <CommonTableRow key={problem.id} problemType={problem.type}>
                 <CommonTableColumn>{problem.id}</CommonTableColumn>
