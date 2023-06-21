@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./problem.css";
@@ -14,10 +14,9 @@ function ProblemForm() {
     output_format: "",
     hint: "",
     language: [],
+    is_correct: false,
+    blank_answer: "",
   });
-  
-
-  const [selectedLevel, setSelectedLevel] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,7 +24,6 @@ function ProblemForm() {
       ...prevState,
       [name]: value,
     }));
-    //setSelectedLevel(e.target.value);
   };
 
   const handleCheckboxChange = (e) => {
@@ -43,16 +41,7 @@ function ProblemForm() {
     setProblem((prevState) => ({ ...prevState, language: currentLanguages }));
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setProblem({ ...problem, [name]: value });
-  };
-
   const handleSubmit = async (e) => {
-    // level 상태값을 체크하고, null이면 빈 문자열로 초기화
-    // if (problem.level === null) {
-    //   setProblem((prevState) => ({ ...prevState, level: "" }));
-    // }
     e.preventDefault();
     const newProblem = {
       level: problem.level,
@@ -63,7 +52,15 @@ function ProblemForm() {
       output_format: problem.output_format,
       hint: problem.hint,
       language: problem.language.toString(),
+      blank_answer: problem.blank_answer,
     };
+
+    if (problem.type === "select") {
+      newProblem["is_correct"] = false;
+    } else if (problem.type === "blank") {
+      newProblem["blank_answer"] = problem.blank_answer;
+    }
+
     try {
       await axios.post(`http://127.0.0.1:8000/api/v1/problems/`, newProblem);
       alert("문제가 성공적으로 등록되었습니다!");
@@ -80,28 +77,21 @@ function ProblemForm() {
         <h3>Add Problem</h3>
         <br />
         <div className="container2">
-          <div>
-            <label htmlFor="level" className="level-label">
-              level
-            </label>
-            <select
-              id="level"
-              name="level"
-              onChange={handleChange}
-              defaultValue=""
-              required
-            >
-              <option value="" disabled hidden>
-                문제 난이도
-              </option>
-              <option value="1">level 1</option>
-              <option value="2">level 2</option>
-              <option value="3">level 3</option>
-              <option value="4">level 4</option>
-              <option value="5">level 5</option>
-            </select>
-          </div>
-
+          <label htmlFor="type" className="type"></label>
+          <select
+            id="type"
+            name="type"
+            defaultValue=""
+            onChange={handleChange}
+            required
+          >
+            <option value="" disabled hidden>
+              문제 유형
+            </option>
+            <option value="code">코드 문제</option>
+            <option value="select">O / X 문제</option>
+            <option value="blank">빈칸 문제</option>
+          </select>
           <div>
             <label htmlFor="title">Title</label>
             <textarea
@@ -126,108 +116,139 @@ function ProblemForm() {
               required
             />
           </div>
+          {problem.type === "code" && (
+            <>
+              <div>
+                <label htmlFor="input_format">Input Format</label>
+                <textarea
+                  type="text"
+                  id="input_format"
+                  name="input_format"
+                  value={problem.input_format}
+                  placeholder="입력 형식"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="output_format">Output Format</label>
+                <textarea
+                  type="text"
+                  id="output_format"
+                  name="output_format"
+                  value={problem.output_format}
+                  placeholder="출력 형식"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="hint">Hint</label>
+                <textarea
+                  type="text"
+                  id="hint"
+                  name="hint"
+                  value={problem.hint}
+                  placeholder="힌트"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </>
+          )}
           <div>
-            <label htmlFor="input_format">Input Format</label>
-            <textarea
-              type="text"
-              id="input_format"
-              name="input_format"
-              value={problem.input_format}
-              placeholder="입력값"
+            <label htmlFor="level" className="level-label">
+              Level
+            </label>
+            <select
+              id="level"
+              name="level"
               onChange={handleChange}
+              defaultValue=""
               required
-            />
+            >
+              <option value="" disabled hidden>
+                문제 난이도
+              </option>
+              <option value="1">level 1</option>
+              <option value="2">level 2</option>
+              <option value="3">level 3</option>
+              <option value="4">level 4</option>
+              <option value="5">level 5</option>
+            </select>
           </div>
-          <div>
-            <label htmlFor="output_format">Output Format</label>
-            <textarea
-              type="text"
-              id="output_format"
-              name="output_format"
-              value={problem.output_format}
-              placeholder="출력값"
-              onChange={handleChange}
-              required
-            />
+          <div className="flex items-start mb-6">
+            <div>Language & Type</div>
+            <div className="language-checkbox">
+              <label title="GCC 7.5">
+                <input
+                  type="checkbox"
+                  name="language"
+                  value="C"
+                  checked={problem.language.includes("C")}
+                  onChange={handleCheckboxChange}
+                />{" "}
+                C
+              </label>
+              <label title="G++ 7.5">
+                <input
+                  type="checkbox"
+                  name="language"
+                  value="C++"
+                  checked={problem.language.includes("C++")}
+                  onChange={handleCheckboxChange}
+                />{" "}
+                C++
+              </label>
+              <label title="OpenJDK 1.8">
+                <input
+                  type="checkbox"
+                  name="language"
+                  value="JAVA"
+                  checked={problem.language.includes("JAVA")}
+                  onChange={handleCheckboxChange}
+                />{" "}
+                Java
+              </label>
+              <label title="Python 3.6">
+                <input
+                  type="checkbox"
+                  name="language"
+                  value="Python3"
+                  checked={problem.language.includes("Python3")}
+                  onChange={handleCheckboxChange}
+                />{" "}
+                Python3
+              </label>
+            </div>
           </div>
-          <div>
-            <label htmlFor="hint">Hint</label>
-            <textarea
-              type="text"
-              id="hint"
-              value={problem.hint}
-              name="hint"
-              placeholder="힌트"
-              onChange={handleChange}
-              required
-            />
-          </div>
-        </div>
-
-        <div className="flex items-start mb-6">
-          <div>Language & Type</div>
-          <div className="language-checkbox">
-            <label title="GCC 7.5">
+          {problem.type === "select" && (
+            <div className="flex items-start mb-6">
+              <label htmlFor="is_correct">Is Correct:</label>
               <input
                 type="checkbox"
-                name="language"
-                value="C"
-                checked={problem.language.includes("C")}
-                onChange={handleCheckboxChange}
-              />{" "}
-              C
-            </label>
-            <label title="G++ 7.5">
+                id="is_correct"
+                name="is_correct"
+                checked={problem.is_correct}
+                onChange={handleChange}
+              />
+            </div>
+          )}
+          {problem.type === "blank" && (
+            <div className="flex items-start mb-6">
+              <label htmlFor="blank_answer">Blank Answer:</label>
               <input
-                type="checkbox"
-                name="language"
-                value="C++"
-                checked={problem.language.includes("C++")}
-                onChange={handleCheckboxChange}
-              />{" "}
-              C++
-            </label>
-            <label title="OpenJDK 1.8">
-              <input
-                type="checkbox"
-                name="language"
-                value="JAVA"
-                checked={problem.language.includes("JAVA")}
-                onChange={handleCheckboxChange}
-              />{" "}
-              Java
-            </label>
-            <label title="Python 3.6">
-              <input
-                type="checkbox"
-                name="language"
-                value="Python3"
-                checked={problem.language.includes("Python3")}
-                onChange={handleCheckboxChange}
-              />{" "}
-              Python3
-            </label>
-          </div>
-          <label htmlFor="type" className="type"></label>
-          <select
-            id="type"
-            name="type"
-            defaultValue=""
-            onChange={handleChange}
-            required
-          >
-            <option value="" disabled hidden>
-              문제 유형
-            </option>
-            <option value="code">코드 문제</option>
-            <option value="select">O / X 문제</option>
-            <option value="value">빈칸 문제</option>
-          </select>
-        </div>
-        <div className="btn">
-          <button onClick={handleSubmit} type="button" className="submit-btn">
-            Save
-          </button>
+                type="text"
+                id="blank_answer"
+                name="blank_answer"
+                value={problem.blank_answer}
+                placeholder="빈칸 답안"
+                onChange={handleChange}
+                required
+              />
+            </div>
+          )}
+          <button type="submit">Submit</button>
         </div>
       </form>
     </div>

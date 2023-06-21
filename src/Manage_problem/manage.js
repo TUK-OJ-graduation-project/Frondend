@@ -36,20 +36,32 @@ const Manage = () => {
   const [dataList, setDataList] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/api/v1/problems/list/")
-      .then(function (response) {
-        console.log(response);
-        setDataList(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    fetchData();
   }, []);
 
-  const deleteProblem = async (id) => {
+  const fetchData = async () => {
     try {
-      await axios.delete(`http://127.0.0.1:8000/api/v1/problems/code/${id}/`);
+      const response = await axios.get(
+        "http://127.0.0.1:8000/api/v1/problems/list/"
+      );
+      setDataList(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteProblem = async (id, type) => {
+    try {
+      let deleteUrl;
+      if (type === "code") {
+        deleteUrl = `http://127.0.0.1:8000/api/v1/problems/code/${id}`;
+      } else if (type === "select") {
+        deleteUrl = `http://127.0.0.1:8000/api/v1/problems/select/${id}`;
+      } else if (type === "blank") {
+        deleteUrl = `http://127.0.0.1:8000/api/v1/problems/blank/${id}`;
+      }
+
+      await axios.delete(deleteUrl);
       const updatedDataList = dataList.filter((problem) => problem.id !== id);
       setDataList(updatedDataList);
       alert("문제가 성공적으로 삭제되었습니다!");
@@ -85,6 +97,9 @@ const Manage = () => {
               <strong>ID:</strong> {problem.id}
             </div>
             <div>
+              <strong>문제유형:</strong> {problem.type}
+            </div>
+            <div>
               <strong>문제명:</strong> {problem.title}
             </div>
             <div>
@@ -99,7 +114,7 @@ const Manage = () => {
               </Link>
               <button
                 className="delete-btn"
-                onClick={() => deleteProblem(problem.id)}
+                onClick={() => deleteProblem(problem.id, problem.type)}
               >
                 Delete
               </button>

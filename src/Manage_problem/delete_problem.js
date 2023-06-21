@@ -17,9 +17,16 @@ function DeleteForm({ problem }) {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(
-        `http://127.0.0.1:8000/api/v1/problems/code/${problem.id}`
-      );
+      let deleteUrl;
+      if (problem.type === "code") {
+        deleteUrl = `http://127.0.0.1:8000/api/v1/problems/code/${problem.id}`;
+      } else if (problem.type === "select") {
+        deleteUrl = `http://127.0.0.1:8000/api/v1/problems/select/${problem.id}`;
+      } else if (problem.type === "blank") {
+        deleteUrl = `http://127.0.0.1:8000/api/v1/problems/blank/${problem.id}`;
+      }
+
+      await axios.delete(deleteUrl);
       alert("문제가 성공적으로 삭제되었습니다!");
     } catch (error) {
       console.log(error);
