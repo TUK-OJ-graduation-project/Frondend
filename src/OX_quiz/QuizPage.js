@@ -11,7 +11,8 @@ function QuizPage() {
   useEffect(() => {
     // GET 요청
     axios
-      .get(`http://127.0.0.1:8000/api/v1/problems/select/1/`)
+      // .get(`http://127.0.0.1:8000/api/v1/problems/select/1/`)
+      .get(`http://127.0.0.1:8000/api/v1/problems/select/${id}/`)
       .then(function (response) {
         console.log(response);
         setProblemData(response.data);
@@ -26,6 +27,22 @@ function QuizPage() {
 
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState("");
+  //다음문제
+  const [nextProblem, setNextProblem] = useState("");
+
+  const loadNextProblem = () => {
+    const nextProblemId = parseInt(id) + 1;
+    axios
+      .get(`http://127.0.0.1:8000/api/v1/problems/select/${nextProblemId}/`)
+       .then(function (response) {
+      console.log(response);
+      setNextProblem(response.data);
+      setProblemData(response.data); // 문제 데이터 업데이트
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
 
   const handleAnswerSubmit = (is_correct) => {
     setLoading(true);
@@ -35,6 +52,15 @@ function QuizPage() {
     setLoading(false);
   };
 
+  const renderNextButton = () => {
+    if (isCorrect) {
+      return (
+        <button className="next-btn" onClick={loadNextProblem}>
+          다음
+        </button>
+      );
+    }
+  };
 
   return (
     <div>
@@ -59,6 +85,10 @@ function QuizPage() {
         </button>
       </div>
       <p className="feedback">{feedback}</p>
+      {/* <div className="answer-container">
+      <button className="answer-btn" onClick={() => renderNextButton()}>다음</button>
+      </div> */}
+      {renderNextButton()}
     </div>
     </div>
   );
