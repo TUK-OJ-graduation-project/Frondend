@@ -392,6 +392,7 @@ min-width: 100px; /* 최소 높이를 지정합니다. 필요에 따라 조절�
     padding: 0.5rem 1rem;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+    text-align: center;
   }
 
   .create-problem-btn:hover {

@@ -248,7 +248,11 @@ function ProblemForm() {
               />
             </div>
           )}
-          <button type="submit">Submit</button>
+        </div>
+        <div className="create-problem-btn">
+          <button onClick={handleSubmit} type="button" className="submit-btn">
+            Save
+          </button>
         </div>
       </form>
     </div>
